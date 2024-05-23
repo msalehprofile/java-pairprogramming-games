@@ -1,5 +1,6 @@
 package org.example.SetUp;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class UserCreation {
@@ -41,6 +42,7 @@ public class UserCreation {
     }
 
     public void assigningNames() {
+        System.out.println("\n" +"You have selected to play with " + numberOfPlayers + " people.");
         switch (numberOfPlayers) {
             case 1:
                 assignPlayerOne();
@@ -71,7 +73,10 @@ public class UserCreation {
                 System.out.println(" \n"
                         +"Welcome " + playerOne + ", " + playerTwo +", " + playerThree + " and " + playerFour);
                 break;
-
+            default:
+                System.out.println("\n" + "Please select a number 1 to 4.");
+                creatingUsers();
+                break;
         }
     }
 
