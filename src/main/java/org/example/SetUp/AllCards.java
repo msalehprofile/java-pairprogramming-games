@@ -70,39 +70,61 @@ public class AllCards {
         assert dealtCard != null;
     }
 
-    public void getCardVisual() {
+    public void getCardVisual(Cards card) {
+        char score;
+        if( card.getScore() == 14) {
+            score = 'A';
+        } else if ( card.getScore() == 13) {
+            score = 'K';
+        } else if ( card.getScore() == 12) {
+            score = 'Q';
+        } else if ( card.getScore() == 11) {
+            score = 'J';
+        } else {
+           score = (char) card.getScore();
+        }
         String uniCode = "";
-        if (dealtCard.getSuit().equals(Suit.HEARTS)) {
+        if (card.getSuit().equals(Suit.HEARTS)) {
             uniCode = "♥";
         }
-        if (dealtCard.getSuit().equals(Suit.DIAMONDS)) {
+        if (card.getSuit().equals(Suit.DIAMONDS)) {
             uniCode = "♦";
         }
-        if (dealtCard.getSuit().equals(Suit.CLUBS)) {
+        if (card.getSuit().equals(Suit.CLUBS)) {
             uniCode = "♣";
         }
-        if (dealtCard.getSuit().equals(Suit.SPADES)) {
+        if (card.getSuit().equals(Suit.SPADES)) {
             uniCode = "♠";
         }
-        if(dealtCard.getScore() < 10) {
+        if(card.getScore() < 10) {
             System.out.print(" \n"
                     + " _____________\n"
-                    + "| " + dealtCard.getScore() + "         " + dealtCard.getScore() + " |\n"
+                    + "| " + card.getScore() + "         " + card.getScore() + " |\n"
                     + "|             |\n"
                     + "|             |\n"
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
-                    + "| " + dealtCard.getScore() + "         " + dealtCard.getScore() + " |\n"
+                    + "| " + card.getScore() + "         " + card.getScore() + " |\n"
+                    + "|_____________|");
+        } else if (card.getScore() == 10) {
+            System.out.print(" \n"
+                    + " _____________\n"
+                    + "| " + card.getScore() + "       " + card.getScore() + " |\n"
+                    + "|             |\n"
+                    + "|             |\n"
+                    + "|      " + uniCode + "      |\n"
+                    + "|             |\n"
+                    + "| " + card.getScore() + "       " + card.getScore() + " |\n"
                     + "|_____________|");
         } else {
             System.out.print(" \n"
                     + " _____________\n"
-                    + "| " + dealtCard.getScore() + "       " + dealtCard.getScore() + " |\n"
+                    + "| " + score + "         " + score + " |\n"
                     + "|             |\n"
                     + "|             |\n"
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
-                    + "| " + dealtCard.getScore() + "       " + dealtCard.getScore() + " |\n"
+                    + "| " + score + "         " + score + " |\n"
                     + "|_____________|");
         }
     }
