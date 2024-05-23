@@ -14,7 +14,8 @@ public abstract class Game {
     }
 
     public void printRules() {
-        System.out.println(rules);
+        System.out.println(" \n"
+                + rules);
     }
 
     public abstract void play();

@@ -7,7 +7,7 @@ public class UserCreation {
     private String playerTwo;
     private String playerThree;
     private String playerFour;
-    private int userInput;
+    private int numberOfPlayers;
 
     public String getPlayerFour() {
         return playerFour;
@@ -25,6 +25,10 @@ public class UserCreation {
         return playerOne;
     }
 
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
     public void creatingUsers() {
         System.out.println(" \n"
                 + " Please pick the number of players (Max four):\n"
@@ -33,11 +37,11 @@ public class UserCreation {
                 + "3: Three\n"
                 + "4: Four\n");
         Scanner userCreation = new Scanner(System.in);
-        userInput = userCreation.nextInt();
+        numberOfPlayers = userCreation.nextInt();
     }
 
     public void assigningNames() {
-        switch (userInput) {
+        switch (numberOfPlayers) {
             case 1:
                 assignPlayerOne();
                 System.out.println(" \n"
@@ -49,6 +53,7 @@ public class UserCreation {
 
                 System.out.println(" \n"
                         +"Welcome " + playerOne + " and " + playerTwo);
+                break;
             case 3:
                 assignPlayerOne();
                 assignPlayerTwo();
@@ -56,6 +61,7 @@ public class UserCreation {
 
                 System.out.println(" \n"
                         +"Welcome " + playerOne + ", " + playerTwo +" and " + playerThree);
+                break;
             case 4:
                 assignPlayerOne();
                 assignPlayerTwo();
@@ -64,6 +70,7 @@ public class UserCreation {
 
                 System.out.println(" \n"
                         +"Welcome " + playerOne + ", " + playerTwo +", " + playerThree + " and " + playerFour);
+                break;
 
         }
     }
@@ -84,7 +91,7 @@ public class UserCreation {
 
     public void assignPlayerThree() {
         System.out.println(" \n"
-                + "Player Two please enter your name:");
+                + "Player Three please enter your name:");
         Scanner playerThreeName = new Scanner(System.in);
         playerThree = playerThreeName.nextLine();
     };
