@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AllCards {
-    private  final Rank[] allRanks = Rank.values();
+    private final Rank[] allRanks = Rank.values();
     private static final List<Cards> allCards = new ArrayList<>();
     private static List<Cards> deckOfCards = allCards;
     public static Cards dealtCard;
@@ -61,6 +61,9 @@ public class AllCards {
          dealtCard = deckOfCards.stream()
                 .findFirst()
                  .orElse(null);
+         deckOfCards = deckOfCards.stream()
+                 .skip(1)
+                 .collect(Collectors.toList());
         assert dealtCard != null;
         String uniCode = "";
         if (dealtCard.getSuit().equals(Suit.HEARTS)) {
