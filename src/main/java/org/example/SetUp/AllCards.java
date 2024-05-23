@@ -16,6 +16,7 @@ public class AllCards {
     private static List<Cards> deckOfCards = allCards;
     public static Cards dealtCard;
 
+
     public void createAllCards() {
         for (Rank allRank : allRanks) {
             Clubs clubs = new Clubs(Suit.CLUBS, allRank);
@@ -57,14 +58,19 @@ public class AllCards {
         Collections.shuffle(deckOfCards);
     }
 
-    public void dealCard(){
-         dealtCard = deckOfCards.stream()
+
+
+    public void dealCard() {
+        dealtCard = deckOfCards.stream()
                 .findFirst()
-                 .orElse(null);
-         deckOfCards = deckOfCards.stream()
-                 .skip(1)
-                 .collect(Collectors.toList());
+                .orElse(null);
+        deckOfCards = deckOfCards.stream()
+                .skip(1)
+                .collect(Collectors.toList());
         assert dealtCard != null;
+    }
+
+    public void getCardVisual() {
         String uniCode = "";
         if (dealtCard.getSuit().equals(Suit.HEARTS)) {
             uniCode = "♥";
@@ -79,7 +85,7 @@ public class AllCards {
             uniCode = "♠";
         }
         if(dealtCard.getScore() < 10) {
-            System.out.println(" \n"
+            System.out.print(" \n"
                     + " _____________\n"
                     + "| " + dealtCard.getScore() + "         " + dealtCard.getScore() + " |\n"
                     + "|             |\n"
@@ -87,10 +93,9 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + dealtCard.getScore() + "         " + dealtCard.getScore() + " |\n"
-                    + "|_____________|\n");
-            System.out.println("Dealt Card: " + dealtCard);
+                    + "|_____________|");
         } else {
-            System.out.println(" \n"
+            System.out.print(" \n"
                     + " _____________\n"
                     + "| " + dealtCard.getScore() + "       " + dealtCard.getScore() + " |\n"
                     + "|             |\n"
@@ -98,11 +103,18 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + dealtCard.getScore() + "       " + dealtCard.getScore() + " |\n"
-                    + "|_____________|\n");
-            System.out.println("Dealt Card: " + dealtCard);
+                    + "|_____________|");
         }
     }
 
+    public List<Cards> getDeckOfCards() {
+        return allCards;
+    }
+
+
+    public Cards getDealtCard() {
+        return dealtCard;
+    }
     public void resetDeck() {
         deckOfCards = allCards;
     }
