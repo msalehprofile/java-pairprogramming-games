@@ -89,7 +89,7 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + card.getScore() + "         " + card.getScore() + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         } else if (card.getScore() == 10) {
             System.out.print(" \n"
                     + " _____________\n"
@@ -99,7 +99,7 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + card.getScore() + "       " + card.getScore() + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         } else {
             System.out.print(" \n"
                     + " _____________\n"
@@ -109,7 +109,7 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + score + "         " + score + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         }
     }
 

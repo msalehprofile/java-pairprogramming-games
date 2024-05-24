@@ -20,8 +20,8 @@ public class Main {
         testdeck.add(new Cards(Suit.CLUBS, Rank.TWO));
         testdeck.add(new Cards(Suit.HEARTS, Rank.TWO));
         testdeck.add(new Cards(Suit.SPADES, Rank.TWO));
-        testdeck.add(new Cards(Suit.DIAMONDS, Rank.TWO));
-        testdeck.add(new Cards(Suit.HEARTS, Rank.TWO));
+        testdeck.add(new Cards(Suit.DIAMONDS, Rank.SEVEN));
+        testdeck.add(new Cards(Suit.HEARTS, Rank.EIGHT));
         testdeck.add(new Cards(Suit.CLUBS, Rank.EIGHT));
         testdeck.add(new Cards(Suit.SPADES, Rank.EIGHT));
     };
