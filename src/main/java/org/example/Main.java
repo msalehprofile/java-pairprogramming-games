@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Games.Rummy.Rummy;
 import org.example.Games.Rummy.WinConfirmation;
+import org.example.HomeScreen.HomeScreen;
 import org.example.SetUp.Cards;
 import org.example.SetUp.Rank;
 import org.example.SetUp.Suit;
@@ -31,9 +32,9 @@ public class Main {
 //        adding();
 //        WinConfirmation.checkingNumberOfSuits(testdeck, plone, pltwo);
 
-
-        Rummy.playRummy();
-
+        WinConfirmation.playerWon(plone, testdeck);
+//        Rummy.playRummy();
+//        HomeScreen.openHome();
 
     }
 }

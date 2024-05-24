@@ -1,5 +1,6 @@
 package org.example.Games.Rummy;
 
+import org.example.HomeScreen.HomeScreen;
 import org.example.SetUp.Cards;
 import org.example.SetUp.Rank;
 import org.example.SetUp.Suit;
@@ -77,8 +78,18 @@ public class WinConfirmation {
                         + "\n2: Exit game!");
         Scanner playerInput = new Scanner(System.in);
         int playAgainDecider = playerInput.nextInt();
+        if(playAgainDecider > 2 || playAgainDecider < 1) {
+            System.out.println("\nPlease chose a valid option.");
+            System.out.println("\nPlease decide whether you would like to play again: "
+                    + "\n1: Play again!"
+                    + "\n2: Exit game!");
+            Scanner playerInputRetry = new Scanner(System.in);
+            playAgainDecider = playerInputRetry.nextInt();
+        }
         if (playAgainDecider == 1) {
             Rummy.playRummy();
+        } else if (playAgainDecider ==2) {
+            HomeScreen.openHome();
         }
 
     }
