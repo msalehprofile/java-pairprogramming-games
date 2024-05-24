@@ -18,25 +18,15 @@ public class AllCards {
 
 
     public void createAllCards() {
-        for (Rank allRank : allRanks) {
-            Clubs clubs = new Clubs(Suit.CLUBS, allRank);
-            allCards.add(clubs);
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                allCards.add(new Cards(suit, rank));
+            }
         }
+    }
 
-        for (Rank allRank : allRanks) {
-            Hearts hearts = new Hearts(Suit.HEARTS, allRank);
-            allCards.add(hearts);
-        }
-
-        for (Rank allRank : allRanks) {
-            Spades spades = new Spades(Suit.SPADES, allRank);
-            allCards.add(spades);
-        }
-
-        for (Rank allRank : allRanks) {
-            Diamonds diamonds = new Diamonds(Suit.DIAMONDS, allRank);
-            allCards.add(diamonds);
-        }
+    public void refreshStack(List<Cards> discardedPile) {
+        deckOfCards = discardedPile;
     }
 
     public void sortDeckByValue() {
@@ -137,6 +127,7 @@ public class AllCards {
     public Cards getDealtCard() {
         return dealtCard;
     }
+
     public void resetDeck() {
         deckOfCards = allCards;
     }

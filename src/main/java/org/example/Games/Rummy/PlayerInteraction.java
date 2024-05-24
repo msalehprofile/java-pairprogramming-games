@@ -33,13 +33,13 @@ public class PlayerInteraction {
     }
 
     public static void gameState(String playersName) {
-        System.out.println(playersName + " please decide what you would like to do next\n"
+        System.out.println("\n" + playersName + " please decide what you would like to do next\n"
                 +"1: Continue Game \n"
                 +"2: Announce Rummy");
     }
 
     public static void playerGameDecision(String playersName, Cards visibleCard) {
-        System.out.println(playersName + " please decide what you would like to do next\n"
+        System.out.println("\n" + playersName + " please decide what you would like to do next\n"
         +"1: Select visible card: " + visibleCard + "\n"
         +"2: Select unknown card.");
     }

@@ -1,6 +1,6 @@
 package org.example.SetUp;
 
-public abstract class Cards {
+public class Cards {
     private final Suit suit;
 
     private final Rank rank;

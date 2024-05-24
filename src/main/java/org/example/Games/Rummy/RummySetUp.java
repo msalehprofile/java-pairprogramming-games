@@ -73,7 +73,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(allCards.getDealtCard());
+                        playerOneCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
@@ -84,7 +84,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(allCards.getDealtCard());
+                        playerTwoCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
@@ -95,7 +95,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(allCards.getDealtCard());
+                        playerOneCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
@@ -106,7 +106,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(allCards.getDealtCard());
+                        playerTwoCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
@@ -117,7 +117,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerThreeCards.add(allCards.getDealtCard());
+                        playerThreeCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerThree + " your cards are: " + playerThreeCards);
@@ -127,7 +127,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(allCards.getDealtCard());
+                        playerOneCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
@@ -138,7 +138,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(allCards.getDealtCard());
+                        playerTwoCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
@@ -149,7 +149,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerThreeCards.add(allCards.getDealtCard());
+                        playerThreeCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerThree + " your cards are: " + playerThreeCards);
@@ -160,7 +160,7 @@ public class RummySetUp extends Game {
                     for (int i = 0; i < 7; i++) {
                         allCards.dealCard();
                         dealtCard = allCards.getDealtCard();
-                        playerFourCards.add(allCards.getDealtCard());
+                        playerFourCards.add(dealtCard);
                         allCards.getCardVisual(dealtCard);
                     }
                     System.out.println("\n" + playerFour + " your cards are: " + playerFourCards);
@@ -247,7 +247,7 @@ public class RummySetUp extends Game {
                         Scanner gameState = new Scanner(System.in);
                         confirmation = gameState.nextInt();
                         if (confirmation != 1) {
-                            break;
+                            WinConfirmation.checkingNumberOfSuits(playerOneCards, playerOne, playerTwo);
                         }
                         PlayerInteraction.nextPlayer(playerOne, playerTwo);
                         System.out.println(playerTwo + " your current cards are as followed: " + playerTwoCards);
@@ -322,11 +322,14 @@ public class RummySetUp extends Game {
                             }
                             PlayerInteraction.nextPlayer(playerTwo, playerOne);
                         }
+                        allCards.refreshStack(discardedPile);
+
 
                         break;
                     case 3:
                         break;
                 }
+                // check hand
             }
         }
     }
