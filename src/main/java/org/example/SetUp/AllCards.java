@@ -1,10 +1,5 @@
 package org.example.SetUp;
 
-import org.example.SetUp.CardType.Clubs;
-import org.example.SetUp.CardType.Hearts;
-import org.example.SetUp.CardType.Spades;
-import org.example.SetUp.CardType.Diamonds;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +11,6 @@ public class AllCards {
     private static List<Cards> deckOfCards = allCards;
     public static Cards dealtCard;
 
-
     public void createAllCards() {
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
@@ -26,7 +20,7 @@ public class AllCards {
     }
 
     public void refreshStack(List<Cards> discardedPile) {
-        deckOfCards = discardedPile;
+        deckOfCards.addAll(discardedPile);
     }
 
     public void sortDeckByValue() {
@@ -120,7 +114,7 @@ public class AllCards {
     }
 
     public List<Cards> getDeckOfCards() {
-        return allCards;
+        return deckOfCards;
     }
 
 

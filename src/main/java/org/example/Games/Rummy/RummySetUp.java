@@ -6,6 +6,7 @@ import org.example.SetUp.Game;
 import org.example.SetUp.UserCreation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -27,9 +28,9 @@ public class RummySetUp extends Game {
     }
 
     static List<Cards> playerOneCards = new ArrayList<>();
-    List<Cards> playerTwoCards = new ArrayList<>();
-    List<Cards> playerThreeCards = new ArrayList<>();
-    List<Cards> playerFourCards = new ArrayList<>();
+    static List<Cards> playerTwoCards = new ArrayList<>();
+    static List<Cards> playerThreeCards = new ArrayList<>();
+    static List<Cards> playerFourCards = new ArrayList<>();
 
     static List<Cards> discardedPile = new ArrayList<>();
 
@@ -43,6 +44,12 @@ public class RummySetUp extends Game {
         if(numberOfPlayers == 1) {
             System.out.println("\n"
                     + "You can't play Rummy alone, please select again.");
+            userCreation.creatingUsers();
+        }
+
+        if(numberOfPlayers > 4 | numberOfPlayers < 1) {
+            System.out.println("\n"
+                    + "Please select a valid option.");
             userCreation.creatingUsers();
         }
 
@@ -60,14 +67,18 @@ public class RummySetUp extends Game {
         allCards.shuffle();
         deckOfCards = allCards.getDeckOfCards();
 
-        System.out.println("\n" + "We are now going to deal out the cards, " + playerOne + " please take a look at the screen first.\n"
-                + "\n" + "Select 1 to continue: \n" +
-                "1: Continue");
+        PlayerInteraction.dealCards(playerOne);
         Scanner seenCards = new Scanner(System.in);
         confirmation = seenCards.nextInt();
+        if (confirmation != 1) {
+            System.out.println("\nPlease try again. ");
+            PlayerInteraction.dealCards(playerOne);
+            Scanner seenCardsTwo = new Scanner(System.in);
+            confirmation = seenCardsTwo.nextInt();
+        }
 
         if (confirmation == 1) {
-
+            // dealing cards depending on number of players
             switch (numberOfPlayers) {
                 case 2:
                     for (int i = 0; i < 7; i++) {
@@ -169,9 +180,12 @@ public class RummySetUp extends Game {
                     break;
             }
 
+            // main gameplay depending on number of players
             while (true) {
                 switch (numberOfPlayers) {
+
                     case 2:
+                        // player ones turn
                         System.out.println(playerOne + " your current cards are as followed: " + playerOneCards);
                         for (Cards card : playerOneCards) {
                             allCards.getCardVisual(card);
@@ -202,6 +216,12 @@ public class RummySetUp extends Game {
                             PlayerInteraction.playerGameDecision(playerOne, discardedPile.get(discardedPile.size() - 1));
                             Scanner playerSelection = new Scanner(System.in);
                             confirmation = playerSelection.nextInt();
+                            if(confirmation != 1 && confirmation !=2) {
+                                System.out.println("\nPlease pick a valid option.");
+                                PlayerInteraction.playerGameDecision(playerOne, discardedPile.get(discardedPile.size() - 1));
+                                Scanner playerSelectionTwo = new Scanner(System.in);
+                                confirmation = playerSelectionTwo.nextInt();
+                            }
                             if (confirmation == 1) {
                                 dealtCard = discardedPile.get(discardedPile.size() - 1);
                                 System.out.println("\n" + " the card you picked up was: " + dealtCard);
@@ -243,13 +263,15 @@ public class RummySetUp extends Game {
                                 }
                             }
                         }
-                        PlayerInteraction.gameState(playerOne);
-                        Scanner gameState = new Scanner(System.in);
-                        confirmation = gameState.nextInt();
-                        if (confirmation != 1) {
-                            WinConfirmation.checkingNumberOfSuits(playerOneCards, playerOne, playerTwo);
+
+                        if (allCards.getDeckOfCards().isEmpty()) {
+                            allCards.refreshStack(discardedPile);
+                            discardedPile.clear();
                         }
-                        PlayerInteraction.nextPlayer(playerOne, playerTwo);
+
+                        PlayerInteraction.gameState(playerOne, playerTwo, playerOneCards);
+
+                        // player twos turn
                         System.out.println(playerTwo + " your current cards are as followed: " + playerTwoCards);
                         for (Cards card : playerTwoCards) {
                             allCards.getCardVisual(card);
@@ -280,6 +302,13 @@ public class RummySetUp extends Game {
                             PlayerInteraction.playerGameDecision(playerTwo, discardedPile.get(discardedPile.size() - 1));
                             Scanner playerSelection = new Scanner(System.in);
                             confirmation = playerSelection.nextInt();
+                            if(confirmation != 1 && confirmation !=2) {
+                                System.out.println("\nPlease pick a valid option.");
+                                PlayerInteraction.playerGameDecision(playerTwo, discardedPile.get(discardedPile.size() - 1));
+                                Scanner playerSelectionTwo = new Scanner(System.in);
+                                confirmation = playerSelectionTwo.nextInt();
+                            }
+
                             if (confirmation == 1) {
                                 dealtCard = discardedPile.get(discardedPile.size() - 1);
                                 System.out.println("\n" + " the card you picked up was: " + dealtCard);
@@ -289,8 +318,8 @@ public class RummySetUp extends Game {
                                     allCards.getCardVisual(card);
                                 }
                                 PlayerInteraction.playerRemoveCardChoice(playerTwo, playerTwoCards);
-                                Scanner playerOneRemoves = new Scanner(System.in);
-                                confirmation = playerOneRemoves.nextInt();
+                                Scanner playerRemoves = new Scanner(System.in);
+                                confirmation = playerRemoves.nextInt();
                                 discardedPile.add(playerTwoCards.get(confirmation - 1));
 
                                 playerTwoCards.remove(confirmation - 1);
@@ -320,9 +349,15 @@ public class RummySetUp extends Game {
                                     allCards.getCardVisual(card);
                                 }
                             }
-                            PlayerInteraction.nextPlayer(playerTwo, playerOne);
+
+
+                            if (allCards.getDeckOfCards().isEmpty()) {
+                                allCards.refreshStack(discardedPile);
+                                discardedPile.clear();
+                            }
+                            PlayerInteraction.gameState(playerTwo, playerOne, playerTwoCards);
                         }
-                        allCards.refreshStack(discardedPile);
+
 
 
                         break;
