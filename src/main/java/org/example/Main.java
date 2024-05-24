@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Games.Rummy.Rummy;
 import org.example.Games.Rummy.WinConfirmation;
+import org.example.HomeScreen.HomeScreen;
 import org.example.SetUp.Cards;
 import org.example.SetUp.Rank;
 import org.example.SetUp.Suit;
@@ -20,8 +21,8 @@ public class Main {
         testdeck.add(new Cards(Suit.CLUBS, Rank.TWO));
         testdeck.add(new Cards(Suit.HEARTS, Rank.TWO));
         testdeck.add(new Cards(Suit.SPADES, Rank.TWO));
-        testdeck.add(new Cards(Suit.DIAMONDS, Rank.TWO));
-        testdeck.add(new Cards(Suit.HEARTS, Rank.TWO));
+        testdeck.add(new Cards(Suit.DIAMONDS, Rank.SEVEN));
+        testdeck.add(new Cards(Suit.HEARTS, Rank.EIGHT));
         testdeck.add(new Cards(Suit.CLUBS, Rank.EIGHT));
         testdeck.add(new Cards(Suit.SPADES, Rank.EIGHT));
     };
@@ -31,9 +32,9 @@ public class Main {
 //        adding();
 //        WinConfirmation.checkingNumberOfSuits(testdeck, plone, pltwo);
 
-
-        Rummy.playRummy();
-
+        WinConfirmation.playerWon(plone, testdeck);
+//        Rummy.playRummy();
+//        HomeScreen.openHome();
 
     }
 }

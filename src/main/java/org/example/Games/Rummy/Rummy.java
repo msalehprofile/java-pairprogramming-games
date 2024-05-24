@@ -18,6 +18,7 @@ public class Rummy {
 
     public static void playRummy() {
         RummySetUp rummy = new RummySetUp(title,rules);
+        System.out.println();
         rummy.printName();
         rummy.printRules();
 
