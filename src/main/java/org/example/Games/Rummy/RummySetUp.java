@@ -14,8 +14,8 @@ public class RummySetUp extends Game {
     private String playerTwo;
     private String playerThree;
     private String playerFour;
-    private static String confirmation;
     public static Cards dealtCard;
+    public static String confirmation;
 
     public RummySetUp(String title, String rules) {
         super(title, rules);
@@ -33,23 +33,20 @@ public class RummySetUp extends Game {
     public void play() {
         UserCreation userCreation = new UserCreation();
         userCreation.creatingUsers();
-        numberOfPlayers = userCreation.getNumberOfPlayers();
 
-        if(Objects.equals(numberOfPlayers, "1")) {
+        if(Objects.equals(userCreation.getNumberOfPlayers(), "1")) {
             System.out.println("\n"
                     + "You can't play Rummy alone, please select again.");
             userCreation.creatingUsers();
         }
 
-        if(Objects.equals(numberOfPlayers, "2") || Objects.equals(numberOfPlayers, "3")  || Objects.equals(numberOfPlayers, "4")) {
-            userCreation.assigningNames();
-        } else {
-            System.out.println("\n"
-                    + "Please select a valid option.");
-            userCreation.creatingUsers();
-        }
+        if (!(userCreation.getNumberOfPlayers().equals("2") || userCreation.getNumberOfPlayers().equals("3") || userCreation.getNumberOfPlayers().equals("4"))) {
+            System.out.println("\nPlease select a valid option.");
+                userCreation.creatingUsers();
+            }
 
-
+        numberOfPlayers = userCreation.getNumberOfPlayers();
+        userCreation.assigningNames();
         playerOne = userCreation.getPlayerOne();
         playerTwo = userCreation.getPlayerTwo();
         playerThree = userCreation.getPlayerThree();
@@ -57,25 +54,25 @@ public class RummySetUp extends Game {
         dealCards();
     }
 
+    public void dealHands(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
+        for (int i = 0; i < 7; i++) {
+            allCards.dealCard();
+            dealtCard = allCards.getDealtCard();
+            currentPlayerCards.add(dealtCard);
+            allCards.getCardVisual(dealtCard);
+        }
+        System.out.println("\n" + currentPlayer + " your cards are: " + currentPlayerCards);
 
+        PlayerInteraction.seenCardConfirmation(currentPlayer);
+        PlayerInteraction.nextPlayer(currentPlayer, nextPlayer);
+    }
 
     public void dealCards() {
-
         allCards.createAllCards();
         allCards.shuffle();
 
         PlayerInteraction.dealCards(playerOne);
-        Scanner seenCards = new Scanner(System.in);
-        confirmation = seenCards.nextLine();
 
-        if (!Objects.equals(confirmation, "1")) {
-            System.out.println("\nPlease try again. ");
-            PlayerInteraction.dealCards(playerOne);
-            Scanner seenCardsTwo = new Scanner(System.in);
-            confirmation = seenCardsTwo.nextLine();
-        }
-
-        if (Objects.equals(confirmation, "1")) {
             // dealing cards depending on number of players
             switch (numberOfPlayers) {
                 case "2":
@@ -91,34 +88,10 @@ public class RummySetUp extends Game {
                     dealHands(playerOne, playerTwo, playerOneCards);
                     dealHands(playerTwo, playerOne, playerTwoCards);
                     dealHands(playerThree, playerOne, playerThreeCards);
-                    dealHands(playerFour, playerOne, playerThreeCards);
-            }
+                    dealHands(playerFour, playerOne, playerFourCards);
 
-
-
-            // main gameplay depending on number of players
-            while (true) {
-                switch (numberOfPlayers) {
-                    case "2":
-                        // player ones turn
-                        playerTurn(playerOne, playerTwo, playerOneCards);
-                        playerTurn(playerTwo, playerOne, playerTwoCards);
-                        break;
-                    case "3":
-                        playerTurn(playerOne, playerTwo, playerOneCards);
-                        playerTurn(playerTwo, playerThree, playerTwoCards);
-                        playerTurn(playerThree, playerOne, playerThreeCards);
-                        break;
-                    case "4":
-                        playerTurn(playerOne, playerTwo, playerOneCards);
-                        playerTurn(playerTwo, playerThree, playerTwoCards);
-                        playerTurn(playerThree, playerFour, playerThreeCards);
-                        playerTurn(playerFour, playerOne, playerThreeCards);
-                        break;
-
-                }
-            }
         }
+        mainGamePlay();
     }
 
     public void playerTurn(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
@@ -135,14 +108,7 @@ public class RummySetUp extends Game {
 
         } else {
             PlayerInteraction.playerGameDecision(currentPlayer, discardedPile.get(discardedPile.size() - 1));
-            Scanner playerSelection = new Scanner(System.in);
-            confirmation = playerSelection.nextLine();
-            if (!Objects.equals(confirmation, "1") && !Objects.equals(confirmation, "2")) {
-                System.out.println("\nPlease pick a valid option.");
-                PlayerInteraction.playerGameDecision(currentPlayer, discardedPile.get(discardedPile.size() - 1));
-                Scanner playerSelectionTwo = new Scanner(System.in);
-                confirmation = playerSelectionTwo.nextLine();
-            }
+            confirmation = PlayerInteraction.getConfirmation();
 
             if (Objects.equals(confirmation, "1")) {
                 dealtCard = discardedPile.get(discardedPile.size() - 1);
@@ -161,8 +127,7 @@ public class RummySetUp extends Game {
             allCards.getCardVisual(card);
         }
         PlayerInteraction.playerRemoveCardChoice(currentPlayer, currentPlayerCards);
-        Scanner playerRemoves = new Scanner(System.in);
-        int confirmationInt = playerRemoves.nextInt();
+        int confirmationInt = Integer.parseInt(PlayerInteraction.getConfirmation());
         discardedPile.add(currentPlayerCards.get(confirmationInt - 1));
 
         currentPlayerCards.remove(confirmationInt - 1);
@@ -180,22 +145,46 @@ public class RummySetUp extends Game {
         PlayerInteraction.gameState(currentPlayer, nextPlayer, currentPlayerCards);
     }
 
-    public void dealHands(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
-        for (int i = 0; i < 7; i++) {
-            allCards.dealCard();
-            dealtCard = allCards.getDealtCard();
-            currentPlayerCards.add(dealtCard);
-            allCards.getCardVisual(dealtCard);
-        }
-        System.out.println("\n" + currentPlayer + " your cards are: " + currentPlayerCards);
 
-        PlayerInteraction.seenCardConfirmaion(currentPlayer);
-        PlayerInteraction.nextPlayer(currentPlayer, nextPlayer);
+
+    public void mainGamePlay() {
+        boolean gameFinished = false;
+        // main gameplay depending on number of players
+        while (!gameFinished) {
+            switch (numberOfPlayers) {
+                case "2":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    playerTurn(playerTwo, playerOne, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    break;
+                case "3":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    playerTurn(playerTwo, playerThree, playerTwoCards);
+                    playerTurn(playerThree, playerOne, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    break;
+                case "4":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    playerTurn(playerTwo, playerThree, playerTwoCards);
+                    playerTurn(playerThree, playerFour, playerThreeCards);
+                    playerTurn(playerFour, playerOne, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    break;
+            }
+        }
     }
 
     @Override
-    public void restart() {
+        public void restart () {
 
-
-    }
-}
+            }
+        }
