@@ -3,18 +3,19 @@ package org.example.Games.Rummy;
 import org.example.SetUp.Cards;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PlayerInteraction {
-    private static int confirmation;
+    private static String confirmation;
 
     public static void nextPlayer(String playersName, String nextPlayer) {
         System.out.println(playersName +" please can you pass the screen to " + nextPlayer + "\n" + "\n"
                 + nextPlayer + " please confirm you now have the screen:\n"
                 + "1: Confirmed.\n");
         Scanner seenCards = new Scanner(System.in);
-        confirmation = seenCards.nextInt();
-        if(confirmation == 1 ){
+        confirmation = seenCards.nextLine();
+        if(Objects.equals(confirmation, "1")){
             System.out.println("\n" + nextPlayer + " thank you for confirming.\n");
         } else {
             System.out.println("\nSorry I didn't catch that. \n");
@@ -26,9 +27,9 @@ public class PlayerInteraction {
         System.out.println("\n " + playersName + " please pick up an unknown card\n"
                 +"1: Select unknown card.\n");
         Scanner playerSelection = new Scanner(System.in);
-        confirmation = playerSelection.nextInt();
+        confirmation = playerSelection.nextLine();
 
-        if(confirmation !=1) {
+        if(!Objects.equals(confirmation, "1")) {
             System.out.println("\nSorry I didn't catch that. \n");
             firstPlayerGameDecision(playersName);
         }
@@ -40,8 +41,8 @@ public class PlayerInteraction {
                 +"2: Announce Rummy\n");
 
         Scanner gameState = new Scanner(System.in);
-        confirmation = gameState.nextInt();
-        if (confirmation != 1) {
+        confirmation = gameState.nextLine();
+        if (!Objects.equals(confirmation, "1")) {
             WinConfirmation.checkingNumberOfSuits(playersFinalHand, playersName, nextPlayer);
         } else {
             PlayerInteraction.nextPlayer(playersName, nextPlayer);
@@ -78,8 +79,8 @@ public class PlayerInteraction {
         System.out.println("\n" + playersName + " please confirm you have seen your cards: \n"
                 + "1: Confirmed." +"\n");
         Scanner seenCards = new Scanner(System.in);
-        confirmation = seenCards.nextInt();
-        if(confirmation == 1 ){
+        confirmation = seenCards.nextLine();
+        if(Objects.equals(confirmation, "1")){
             System.out.println("\n" + "Thank you for confirming "+ playersName  +"\n");
         } else {
             System.out.println("\nSorry I didn't catch that. \n");

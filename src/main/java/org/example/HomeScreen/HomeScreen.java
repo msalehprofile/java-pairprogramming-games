@@ -18,7 +18,7 @@ public class HomeScreen {
             chosenGame = openGamesRetry.nextInt();
         } if (chosenGame == 1) {
             Rummy.playRummy();
-        } else if (chosenGame ==2) {
+        } else if (chosenGame == 2) {
             System.out.println("Play Poker");
         } else{
             System.out.println("\nSee you soon, goodbye!");
