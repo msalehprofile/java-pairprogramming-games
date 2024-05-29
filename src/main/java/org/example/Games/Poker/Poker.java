@@ -1,9 +1,6 @@
 package org.example.Games.Poker;
 
 import org.example.Games.Rummy.RummySetUp;
-import org.example.SetUp.Cards;
-
-import java.util.List;
 
 public class Poker {
     private static final String title = "Texas Hold'em Poker";
@@ -32,9 +29,15 @@ public class Poker {
             "9: One Pair: Two cards of the same rank.\n" +
             "10: High Card: When no other hand applies, the highest card wins.\n" +
             "\n" +
-            "Each round starts with two mandatory bets called the small blind and the big blind, posted by the two players to the left of the dealer button.\n" +
-            "The dealer button moves one seat to the left after each hand, rotating the responsibility of dealing and posting blinds.\n" +
+            "Each round starts with a mandatory buy-in posted by each player who wishes to play.\n" +
+            "At the end of every round, the first player changes in a clockwise manner.\n" +
             "Players may fold, call, or raise during each betting round.\n" +
             "The game continues until players decide to stop, or one player has won all the chips.";
+    public static void playPoker() {
+        PokerGame poker = new PokerGame(title,rules);
+        poker.printName();
+        poker.printRules();
+        poker.play();
+    }
 }
 

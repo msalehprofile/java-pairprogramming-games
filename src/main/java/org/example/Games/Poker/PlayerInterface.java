@@ -32,6 +32,7 @@ public class PlayerInterface {
             if (buyInChoice == 1) {
                 currentPlayerChips -= buyInAmount;
                 playerChips.set(i, currentPlayerChips);
+                roundChips += buyInAmount;
                 System.out.println("Player " + (playerNames.get(i)) + " has bought in for 25 chips");
                 isPlayerActive.set(i, true);
             } else if (buyInChoice == 2) {

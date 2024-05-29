@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Games.Poker.Poker;
 import org.example.Games.Rummy.Rummy;
 
 
@@ -7,7 +8,7 @@ import org.example.Games.Rummy.Rummy;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-
+        Poker.playPoker();
         Rummy.playRummy();
 
     }

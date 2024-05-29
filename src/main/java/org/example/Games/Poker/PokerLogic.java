@@ -87,7 +87,7 @@ public class PokerLogic {
             String playerName = scanner.nextLine();
             playerNames.add(playerName);
             boolean add = isPlayerActive.add(true);
-            playerChips.add(1000);
+            playerChips.add(500);
         }
         System.out.println("Players in the game:");
         for (String name : playerNames) {
