@@ -75,27 +75,9 @@ public class WinConfirmation {
 
     public static void playerWon(String player, List<Cards> playersFinalHand) {
         System.out.println("\nCongratulations" + player + " you won! Your winning hand is:\n"
-                        + "\n" + playersFinalHand + "\n"
-                        + "\n"
-                        + "\nPlease decide whether you would like to play again: "
-                        + "\n1: Play again!"
-                        + "\n2: Exit game!");
+                        + "\n" + playersFinalHand + "\n");
         gameFinished = true;
-        Scanner playerInput = new Scanner(System.in);
-        int playAgainDecider = playerInput.nextInt();
-        if(playAgainDecider > 2 || playAgainDecider < 1) {
-            System.out.println("\nPlease chose a valid option.");
-            System.out.println("\nPlease decide whether you would like to play again: "
-                    + "\n1: Play again!"
-                    + "\n2: Exit game!");
-            Scanner playerInputRetry = new Scanner(System.in);
-            playAgainDecider = playerInputRetry.nextInt();
-        }
-        if (playAgainDecider == 1) {
-            Rummy.playRummy();
-        } else if (playAgainDecider ==2) {
-            HomeScreen.openHome();
-        }
+        PlayerInteraction.playAgainDecider();
 
     }
 
