@@ -154,6 +154,10 @@ public class RummySetUp extends Game {
             switch (numberOfPlayers) {
                 case "2":
                     playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerTwo, playerOne, playerTwoCards);
                     gameFinished = PlayerInteraction.isGameFinished();
                     if(gameFinished) {
@@ -162,7 +166,15 @@ public class RummySetUp extends Game {
                     break;
                 case "3":
                     playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerTwo, playerThree, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerThree, playerOne, playerThreeCards);
                     gameFinished = PlayerInteraction.isGameFinished();
                     if(gameFinished) {
@@ -171,8 +183,20 @@ public class RummySetUp extends Game {
                     break;
                 case "4":
                     playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerTwo, playerThree, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerThree, playerFour, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
                     playerTurn(playerFour, playerOne, playerThreeCards);
                     gameFinished = PlayerInteraction.isGameFinished();
                     if(gameFinished) {
@@ -185,6 +209,12 @@ public class RummySetUp extends Game {
 
     @Override
         public void restart () {
-
+                allCards.resetDeck();
+                playerFourCards.clear();
+                playerThreeCards.clear();
+                playerTwoCards.clear();
+                playerOneCards.clear();
+                discardedPile.clear();
+                dealCards();
             }
         }

@@ -11,7 +11,11 @@ import java.util.stream.Collectors;
 public class WinConfirmation {
     static List<Suit> suitsCount = new ArrayList<>();
     static List<Rank> rankCount = new ArrayList<>();
+    static boolean gameFinished= false;
 
+    public static boolean isGameFinished() {
+        return gameFinished;
+    }
 
     public static void checkingNumberOfSuits(List<Cards> playersFinalHand, String player, String nextPlayer) {
         for (Cards card : playersFinalHand) {
@@ -76,6 +80,7 @@ public class WinConfirmation {
                         + "\nPlease decide whether you would like to play again: "
                         + "\n1: Play again!"
                         + "\n2: Exit game!");
+        gameFinished = true;
         Scanner playerInput = new Scanner(System.in);
         int playAgainDecider = playerInput.nextInt();
         if(playAgainDecider > 2 || playAgainDecider < 1) {
