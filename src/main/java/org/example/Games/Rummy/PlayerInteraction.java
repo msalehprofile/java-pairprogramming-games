@@ -94,7 +94,7 @@ public class PlayerInteraction {
 
     // player choses what card they want to remove
     public static void playerRemoveCardChoice(String currentPlayer, List<Cards> playerCards) {
-        System.out.println("\n" + "\n" + currentPlayer + " please select what card you would like to remove from your deck: \n"
+        System.out.println("\n" + currentPlayer + " please select what card you would like to remove from your deck: \n"
                 + "1: " + playerCards.get(0) + "\n"
                 + "2: " + playerCards.get(1) + "\n"
                 + "3: " + playerCards.get(2) + "\n"
