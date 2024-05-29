@@ -5,6 +5,7 @@ import org.example.SetUp.Cards;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.Games.Poker.PlayerInterface.roundChips;
 import static org.example.Games.Poker.PokerHandEvaluator.evaluateHand;
 
 public class WinCase {
@@ -25,8 +26,11 @@ public class WinCase {
                 winningPlayerIndex = i;
             }
         }
+        String winnerName = playerNames.get(winningPlayerIndex);
+        int winnerChips = PokerLogic.getPlayerChips().get(winningPlayerIndex) + roundChips;
+        PokerLogic.getPlayerChips().set(winningPlayerIndex, winnerChips);
 
-        System.out.println("The winner is " + playerNames.get(winningPlayerIndex) + " with a " +
-                winningHandRank.getName());
+        System.out.println("The winner is " + winnerName + " with a " +
+                winningHandRank.getName() + ". They won " + roundChips + " chips. " + winnerName + "'s total chips: " + winnerChips);
     }
 }
