@@ -2,19 +2,23 @@ package org.example.Games.Poker;
 
 import org.example.SetUp.AllCards;
 import org.example.SetUp.Cards;
-import org.example.SetUp.Game;
 import org.example.SetUp.UserCreation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class PokerLogic extends Game {
+import static org.example.Games.Poker.PlayerInterface.displayPlayerHand;
+
+public class PokerLogic {
     protected static final List<String> playerNames = new ArrayList<>();
-    private List<Cards> gameCards;
+    private List<Cards> gameCards = new ArrayList<>();
     public static Cards dealtCards;
-    static List<List<Cards>> playerHands;
+    static List<List<Cards>> playerHands = new ArrayList<>();
     static AllCards deck = new AllCards();
+    static List<Cards> discardedPile = new ArrayList<>();
+    static List<Cards> playerAndGameCards = new ArrayList<>();
 
     public static ArrayList<Integer> getPlayerChips() {
         return playerChips;
@@ -24,8 +28,8 @@ public class PokerLogic extends Game {
         PokerLogic.playerChips = playerChips;
     }
 
-    static ArrayList<Integer> playerChips;
-    public static ArrayList<Boolean> isPlayerActive;
+    static ArrayList<Integer> playerChips = new ArrayList<>();
+    public static ArrayList<Boolean> isPlayerActive = new ArrayList<>();
 
     public static int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -61,11 +65,6 @@ public class PokerLogic extends Game {
 
     public static int numberOfPlayers;
 
-    public PokerLogic(String title, String rules) {
-        super(title, rules);
-    }
-
-    @Override
     public void play() {
         UserCreation userCreation = new UserCreation();
         userCreation.creatingUsers();
@@ -85,7 +84,7 @@ public class PokerLogic extends Game {
             System.out.print("Enter the name of player " + (i + 1) + ": ");
             String playerName = scanner.nextLine();
             playerNames.add(playerName);
-            isPlayerActive.add(true);
+            boolean add = isPlayerActive.add(true);
             playerChips.add(1000);
         }
         System.out.println("Players in the game:");
@@ -102,7 +101,7 @@ public class PokerLogic extends Game {
         }
         for(int i = 0; i < numberOfPlayers; i++){
             List<Cards> playerHand = new ArrayList<>();
-            for(int j = 0; j < 3; j++){
+            for(int j = 0; j < 2; j++){
                 deck.dealCard();
                 playerHand.add(deck.getDealtCard());
             }
@@ -110,5 +109,35 @@ public class PokerLogic extends Game {
         }
 
 
+    }
+
+    public void cyclePlayers() {
+        if (!playerNames.isEmpty()) {
+            // Rotate player names
+            Collections.rotate(playerNames, -1);
+            // Rotate player chips
+            Collections.rotate(playerChips, -1);
+            // Rotate player active status
+            Collections.rotate(isPlayerActive, -1);
+        }
+    };
+
+    public void dealFlop() {
+        for(int j = 0; j < 3; j++){
+            deck.dealCard();
+            gameCards.add(deck.getDealtCard());
+            displayPlayerHand(gameCards);
+        }
+    }
+
+    public void dealTurn() {
+        deck.dealCard();
+        gameCards.add(deck.getDealtCard());
+        displayPlayerHand(gameCards);
+    }
+    public void dealRiver(){
+        deck.dealCard();
+        gameCards.add(deck.getDealtCard());
+        displayPlayerHand(gameCards);
     }
 }

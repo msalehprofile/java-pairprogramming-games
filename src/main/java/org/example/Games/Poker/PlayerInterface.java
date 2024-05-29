@@ -1,6 +1,11 @@
 package org.example.Games.Poker;
 
+import org.example.SetUp.AllCards;
+import org.example.SetUp.Cards;
+
+import java.util.List;
 import java.util.Scanner;
+
 import static org.example.Games.Poker.PokerLogic.*;
 
 public class PlayerInterface {
@@ -53,7 +58,9 @@ public class PlayerInterface {
 
                 while (!correctInput) {
                     currentPlayerChips = getPlayerChips().get(i);
-                    System.out.println("Player " + playerNames.get(i) + ", you have " + currentPlayerChips + " chips. Please select what you would like to do:");
+                    System.out.println("Player " + playerNames.get(i) + ", your cards are:");
+                    displayPlayerHand(getPlayerHands().get(i));
+                    System.out.println("You have " + currentPlayerChips + " chips. Please select what you would like to do:");
                     System.out.println("1: Fold");
                     System.out.println("2: Call");
                     System.out.println(raiseOccurred ? "" : "3: Raise");
@@ -112,5 +119,13 @@ public class PlayerInterface {
             }
         }
         System.out.println("Round has ended.");
+    }
+
+    static void displayPlayerHand(List<Cards> playerHand) {
+        for (Cards card : playerHand) {
+            deck.getCardVisual(card);
+            System.out.print(" ");
+        }
+        System.out.println();
     }
 }

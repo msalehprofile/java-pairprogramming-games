@@ -1,6 +1,9 @@
 package org.example.Games.Poker;
 
 import org.example.Games.Rummy.RummySetUp;
+import org.example.SetUp.Cards;
+
+import java.util.List;
 
 public class Poker {
     private static final String title = "Texas Hold'em Poker";
@@ -33,12 +36,5 @@ public class Poker {
             "The dealer button moves one seat to the left after each hand, rotating the responsibility of dealing and posting blinds.\n" +
             "Players may fold, call, or raise during each betting round.\n" +
             "The game continues until players decide to stop, or one player has won all the chips.";
-
-    public static void playPoker() {
-        PokerSetUp poker = new PokerSetUp(title,rules);
-        rummy.printName();
-        rummy.printRules();
-
-        rummy.play();
-    }
 }
+
