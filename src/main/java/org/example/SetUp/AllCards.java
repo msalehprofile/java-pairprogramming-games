@@ -42,8 +42,6 @@ public class AllCards {
         Collections.shuffle(deckOfCards);
     }
 
-
-
     public void dealCard() {
         dealtCard = deckOfCards.stream()
                 .findFirst()
