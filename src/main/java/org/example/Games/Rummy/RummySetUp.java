@@ -61,8 +61,10 @@ public class RummySetUp extends Game {
             currentPlayerCards.add(dealtCard);
             allCards.getCardVisual(dealtCard);
         }
-        System.out.println("\n" + currentPlayer + " your cards are: " + currentPlayerCards);
-
+        System.out.println("\n" + currentPlayer + " your cards are: ");
+        for (Cards card : currentPlayerCards) {
+            System.out.println(card);
+        }
         PlayerInteraction.seenCardConfirmation(currentPlayer);
         PlayerInteraction.nextPlayer(currentPlayer, nextPlayer);
     }
@@ -95,15 +97,18 @@ public class RummySetUp extends Game {
     }
 
     public void playerTurn(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
-        System.out.println(currentPlayer + " your current cards are as followed: " + currentPlayerCards);
+        System.out.println(currentPlayer + " your current cards are as followed: ");
         for (Cards card : currentPlayerCards) {
             allCards.getCardVisual(card);
+        }
+        for (Cards card : currentPlayerCards) {
+            System.out.println(card);
         }
         if (discardedPile.isEmpty()) {
             PlayerInteraction.firstPlayerGameDecision(currentPlayer);
             allCards.dealCard();
             dealtCard = allCards.getDealtCard();
-            System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
+            System.out.println("\n" +currentPlayer+ " the unknown card you picked up was: " + dealtCard);
             currentPlayerCards.add(dealtCard);
 
         } else {
@@ -118,14 +123,11 @@ public class RummySetUp extends Game {
             } else {
                 allCards.dealCard();
                 dealtCard = allCards.getDealtCard();
-                System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
+                System.out.println("\n" + currentPlayer +" the unknown card you picked up was: " + dealtCard);
                 currentPlayerCards.add(dealtCard);
             }
         }
-        System.out.println("You currently have the below cards: ");
-        for (Cards card : currentPlayerCards) {
-            allCards.getCardVisual(card);
-        }
+
         PlayerInteraction.playerRemoveCardChoice(currentPlayer, currentPlayerCards);
         int confirmationInt = Integer.parseInt(PlayerInteraction.getConfirmation());
         discardedPile.add(currentPlayerCards.get(confirmationInt - 1));
