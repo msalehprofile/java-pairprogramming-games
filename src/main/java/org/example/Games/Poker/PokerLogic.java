@@ -14,6 +14,7 @@ public class PokerLogic extends Game {
     private List<Cards> gameCards;
     public static Cards dealtCards;
     static List<List<Cards>> playerHands;
+    static AllCards deck = new AllCards();
 
     public static int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -81,9 +82,19 @@ public class PokerLogic extends Game {
     }
 
     public void dealCards(){
-        AllCards deck = new AllCards();
-        deck.createAllCards();
-        deck.shuffle();
+        if (deck.getDeckOfCards().size() < 13) {
+            AllCards deck = new AllCards();
+            deck.createAllCards();
+            deck.shuffle();
+        }
+        for(int i = 0; i < numberOfPlayers; i++){
+            List<Cards> playerHand = new ArrayList<>();
+            for(int j = 0; j < 3; j++){
+                deck.dealCard();
+                playerHand.add(deck.getDealtCard());
+            }
+            playerHands.add(playerHand);
+        }
 
 
     }
