@@ -128,6 +128,25 @@ public class PlayerInteraction {
 
     }
 
+    public static void playAgainDecider() {
+        System.out.println("\nPlease decide whether you would like to play again: "
+                + "\n1: Play again!"
+                + "\n2: Exit game!");
+        Scanner playerInput = new Scanner(System.in);
+        String playAgainDecider = playerInput.nextLine();
+        if(!Objects.equals(playAgainDecider, "2") && !Objects.equals(playAgainDecider, "1")) {
+            System.out.println("\nPlease chose a valid option.");
+            playAgainDecider();
+        }
+        if (Objects.equals(playAgainDecider, "1")) {
+            Rummy.playRummy();
+        } else if (Objects.equals(playAgainDecider, "2")) {
+            gameFinished = true;
+            System.out.println("Thank you for stopping by, see you soon!");
+            HomeScreen.openHome();
+        }
+    }
+
     // player confirming they have seen their cards
     public static void seenCardConfirmation(String playersName) {
         System.out.println("\n" + playersName + " please confirm you have seen your cards: \n"
