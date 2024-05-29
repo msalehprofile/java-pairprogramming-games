@@ -1,5 +1,7 @@
 package org.example.Games.Poker;
 
+import org.example.Games.Rummy.RummySetUp;
+
 public class Poker {
     private static final String title = "Texas Hold'em Poker";
     private static final String rules = "The aim of Texas Hold'em Poker is to win chips by either having the best hand or by convincing other players to fold.\n" +
@@ -31,4 +33,12 @@ public class Poker {
             "The dealer button moves one seat to the left after each hand, rotating the responsibility of dealing and posting blinds.\n" +
             "Players may fold, call, or raise during each betting round.\n" +
             "The game continues until players decide to stop, or one player has won all the chips.";
+
+    public static void playPoker() {
+        PokerSetUp poker = new PokerSetUp(title,rules);
+        rummy.printName();
+        rummy.printRules();
+
+        rummy.play();
+    }
 }

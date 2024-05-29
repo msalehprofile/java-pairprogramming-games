@@ -1,10 +1,5 @@
 package org.example.SetUp;
 
-import org.example.SetUp.CardType.Clubs;
-import org.example.SetUp.CardType.Hearts;
-import org.example.SetUp.CardType.Spades;
-import org.example.SetUp.CardType.Diamonds;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

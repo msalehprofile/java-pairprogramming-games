@@ -10,11 +10,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PokerLogic extends Game {
-    private static final List<String> playerNames = new ArrayList<>();
+    protected static final List<String> playerNames = new ArrayList<>();
     private List<Cards> gameCards;
     public static Cards dealtCards;
     static List<List<Cards>> playerHands;
     static AllCards deck = new AllCards();
+
+    public static ArrayList<Integer> getPlayerChips() {
+        return playerChips;
+    }
+
+    public static void setPlayerChips(ArrayList<Integer> playerChips) {
+        PokerLogic.playerChips = playerChips;
+    }
+
+    static ArrayList<Integer> playerChips;
+    public static ArrayList<Boolean> isPlayerActive;
 
     public static int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -74,6 +85,8 @@ public class PokerLogic extends Game {
             System.out.print("Enter the name of player " + (i + 1) + ": ");
             String playerName = scanner.nextLine();
             playerNames.add(playerName);
+            isPlayerActive.add(true);
+            playerChips.add(1000);
         }
         System.out.println("Players in the game:");
         for (String name : playerNames) {
