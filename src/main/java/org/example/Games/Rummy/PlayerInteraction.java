@@ -1,5 +1,6 @@
 package org.example.Games.Rummy;
 
+import org.example.HomeScreen.HomeScreen;
 import org.example.SetUp.Cards;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class PlayerInteraction {
     private static String confirmation;
-    private static boolean gameFinished = false;
+    private static boolean gameFinished;
 
     public static boolean isGameFinished() {
         return gameFinished;
@@ -50,20 +51,29 @@ public class PlayerInteraction {
     public static void gameState(String playersName, String nextPlayer, List<Cards> playersFinalHand) {
         System.out.println("\n" + playersName + " please decide what you would like to do next\n"
                 +"1: Continue Game \n"
-                +"2: Announce Rummy\n");
+                +"2: Announce Rummy\n"
+                +"3: Restart Game\n"
+                +"4: Exit Game\n");
 
         Scanner gameState = new Scanner(System.in);
         confirmation = gameState.nextLine();
-        if (!Objects.equals(confirmation, "1") && !Objects.equals(confirmation, "2")) {
+        if (!Objects.equals(confirmation, "1") && !Objects.equals(confirmation, "2") && !Objects.equals(confirmation, "3") && !Objects.equals(confirmation, "4")) {
             System.out.println("\nPlease chose a valid option.");
             gameState(playersName, nextPlayer, playersFinalHand);
         }
 
-        if (!Objects.equals(confirmation, "1")) {
+        if (Objects.equals(confirmation, "2")) {
             WinConfirmation.checkingNumberOfSuits(playersFinalHand, playersName, nextPlayer);
-            gameFinished = true;
-        } else {
+        } else if (Objects.equals(confirmation, "1")){
             PlayerInteraction.nextPlayer(playersName, nextPlayer);
+        } else if (Objects.equals(confirmation, "3")){
+            gameFinished = true;
+            RummySetUp rummyRestart = new RummySetUp(Rummy.getTitle(), Rummy.getRules());
+            rummyRestart.restart();
+        } else {
+            System.out.println("\nThank you for playing, see you again soon.");
+            gameFinished = true;
+            HomeScreen.openHome();
         }
     }
 

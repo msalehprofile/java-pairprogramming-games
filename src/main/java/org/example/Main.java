@@ -16,20 +16,22 @@ public class Main {
     //Below is to be removed, just for here for now for quick testing purposes <3
 //    static List<Cards> testdeck = new ArrayList<>();
 //    static String plone = "molly";
-//    static String pltwo = "hpoe";
+//    static String pltwo = "hope";
 //
 //    public static void adding() {
 //        testdeck.add(new Cards(Suit.CLUBS, Rank.TWO));
 //        testdeck.add(new Cards(Suit.HEARTS, Rank.TWO));
 //        testdeck.add(new Cards(Suit.SPADES, Rank.TWO));
-//        testdeck.add(new Cards(Suit.DIAMONDS, Rank.SEVEN));
+//        testdeck.add(new Cards(Suit.DIAMONDS, Rank.EIGHT));
 //        testdeck.add(new Cards(Suit.HEARTS, Rank.EIGHT));
 //        testdeck.add(new Cards(Suit.CLUBS, Rank.EIGHT));
 //        testdeck.add(new Cards(Suit.SPADES, Rank.EIGHT));
 //    };
 
     public static void main(String[] args) {
-
+//
+//        adding();
+//        WinConfirmation.checkingNumberOfSuits(testdeck, plone, pltwo);
         HomeScreen.openHome();
 
     }
