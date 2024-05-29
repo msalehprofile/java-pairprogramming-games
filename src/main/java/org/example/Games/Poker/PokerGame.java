@@ -6,6 +6,7 @@ import org.example.SetUp.AllCards;
 import java.util.List;
 
 import static org.example.Games.Poker.PokerLogic.getNumberOfPlayers;
+import static org.example.Games.Poker.PokerLogic.playerNames;
 
 public class PokerGame {
     public static void main(String[] args) {
@@ -20,5 +21,10 @@ public class PokerGame {
         PlayerInterface.roundInteraction(getNumberOfPlayers());
         pokerLogic.dealRiver();
         PlayerInterface.roundInteraction(getNumberOfPlayers());
+
+        List<Cards> allCards = pokerLogic.getGameCards();
+        List<List<Cards>> playerAndGameCards = PokerLogic.getPlayerHands();
+
+        WinCase winCase = new WinCase(allCards, playerAndGameCards, playerNames);
     }
 }

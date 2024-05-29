@@ -18,13 +18,15 @@ public class PokerLogic {
     static List<List<Cards>> playerHands = new ArrayList<>();
     static AllCards deck = new AllCards();
     static List<Cards> discardedPile = new ArrayList<>();
-    static List<Cards> playerAndGameCards = new ArrayList<>();
-
     public static ArrayList<Integer> getPlayerChips() {
         return playerChips;
     }
 
-    public static void setPlayerChips(ArrayList<Integer> playerChips) {
+    public List<String> getPlayerNames() {
+        return playerNames;
+    }
+
+        public static void setPlayerChips(ArrayList<Integer> playerChips) {
         PokerLogic.playerChips = playerChips;
     }
 
