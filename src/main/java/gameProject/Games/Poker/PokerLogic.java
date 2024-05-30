@@ -129,6 +129,7 @@ public class PokerLogic {
             deck.dealCard();
             gameCards.add(deck.getDealtCard());
             displayPlayerHand(gameCards);
+            PlayerInterface.lastBet = 0;
         }
     }
 
@@ -136,10 +137,12 @@ public class PokerLogic {
         deck.dealCard();
         gameCards.add(deck.getDealtCard());
         displayPlayerHand(gameCards);
+        PlayerInterface.lastBet = 0;
     }
     public void dealRiver(){
         deck.dealCard();
         gameCards.add(deck.getDealtCard());
         displayPlayerHand(gameCards);
+        PlayerInterface.lastBet = 0;
     }
 }
