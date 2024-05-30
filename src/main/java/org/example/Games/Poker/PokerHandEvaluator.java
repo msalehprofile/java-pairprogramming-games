@@ -26,10 +26,14 @@ public class PokerHandEvaluator {
         return HandRank.HIGH_CARD;
     }
 
-    public static List<Cards> combinePlayerAndGameCards(List<Cards> playerCards, List<Cards> gameCards) {
-        List<Cards> combinedList = new ArrayList<>(playerCards);
-        combinedList.addAll(gameCards);
-        return combinedList;
+    public static List<Cards> combinePlayerAndGameCards(List<Cards> playerHand, List<Cards> gameCards) {
+        if (playerHand == null) {
+            return new ArrayList<>();
+        }
+
+        List<Cards> combined = new ArrayList<>(playerHand);
+        combined.addAll(gameCards);
+        return combined;
     }
 
     private static void sortCards(List<Cards> cards) {
