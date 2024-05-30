@@ -1,5 +1,5 @@
-package org.example;
-import org.example.HomeScreen.HomeScreen;
+package gameProject;
+import gameProject.HomeScreen.HomeScreen;
 
 public class Main {
 

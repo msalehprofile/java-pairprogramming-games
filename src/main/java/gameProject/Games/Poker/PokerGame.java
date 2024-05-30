@@ -1,14 +1,11 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
-import org.example.SetUp.Cards;
-import org.example.SetUp.Game;
+import gameProject.SetUp.Cards;
+import gameProject.SetUp.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static org.example.Games.Poker.PokerLogic.getNumberOfPlayers;
-import static org.example.Games.Poker.PokerLogic.playerNames;
 
 public class PokerGame extends Game {
     public PokerGame(String title, String rules) {
@@ -28,18 +25,18 @@ public class PokerGame extends Game {
                 PlayerInterface.roundChips = 0;
                 PlayerInterface.buyIn();
                 pokerLogic.dealCards();
-                PlayerInterface.roundInteraction(getNumberOfPlayers());
+                PlayerInterface.roundInteraction(PokerLogic.getNumberOfPlayers());
                 pokerLogic.dealFlop();
-                PlayerInterface.roundInteraction(getNumberOfPlayers());
+                PlayerInterface.roundInteraction(PokerLogic.getNumberOfPlayers());
                 pokerLogic.dealTurn();
-                PlayerInterface.roundInteraction(getNumberOfPlayers());
+                PlayerInterface.roundInteraction(PokerLogic.getNumberOfPlayers());
                 pokerLogic.dealRiver();
-                PlayerInterface.roundInteraction(getNumberOfPlayers());
+                PlayerInterface.roundInteraction(PokerLogic.getNumberOfPlayers());
 
                 List<Cards> allCards = pokerLogic.getGameCards();
                 List<List<Cards>> playerAndGameCards = PokerLogic.getPlayerHands();
 
-                WinCase winCase = new WinCase(allCards, playerAndGameCards, playerNames);
+                WinCase winCase = new WinCase(allCards, playerAndGameCards, PokerLogic.playerNames);
 
                 System.out.println("Do you want to play another game? (yes/no)");
                 String playAnother = scanner.nextLine();

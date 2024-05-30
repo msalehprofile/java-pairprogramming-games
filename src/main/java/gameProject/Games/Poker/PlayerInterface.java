@@ -1,15 +1,13 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
-import org.example.SetUp.Cards;
+import gameProject.SetUp.Cards;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.example.Games.Poker.PokerLogic.*;
-
 public class PlayerInterface {
-    static int numberOfPlayers = getNumberOfPlayers();
+    static int numberOfPlayers = PokerLogic.getNumberOfPlayers();
     static int playerRoundSelection;
     static int currentPlayerChips;
     static int buyInAmount = 25;
@@ -23,9 +21,9 @@ public class PlayerInterface {
     protected static void buyIn() {
         Scanner buyInSelection = new Scanner(System.in);
         for (int i = 0; i < numberOfPlayers; i++) {
-            isPlayerActive.set(i, false);
-            currentPlayerChips = getPlayerChips().get(i);
-            System.out.println("Player " + playerNames.get(i) + ", you have " + currentPlayerChips + " chips. Would you like to buy in for 25 chips?");
+            PokerLogic.isPlayerActive.set(i, false);
+            currentPlayerChips = PokerLogic.getPlayerChips().get(i);
+            System.out.println("Player " + PokerLogic.playerNames.get(i) + ", you have " + currentPlayerChips + " chips. Would you like to buy in for 25 chips?");
             System.out.println("1: Yes");
             System.out.println("2: No");
 
@@ -35,13 +33,13 @@ public class PlayerInterface {
                     int buyInChoice = buyInSelection.nextInt();
                     if (buyInChoice == 1) {
                         currentPlayerChips -= buyInAmount;
-                        playerChips.set(i, currentPlayerChips);
+                        PokerLogic.playerChips.set(i, currentPlayerChips);
                         roundChips += buyInAmount;
-                        System.out.println("Player " + playerNames.get(i) + " has bought in for 25 chips");
-                        isPlayerActive.set(i, true);
+                        System.out.println("Player " + PokerLogic.playerNames.get(i) + " has bought in for 25 chips");
+                        PokerLogic.isPlayerActive.set(i, true);
                         validInput = true;
                     } else if (buyInChoice == 2) {
-                        System.out.println("Player " + playerNames.get(i) + " has not bought in for 25 chips");
+                        System.out.println("Player " + PokerLogic.playerNames.get(i) + " has not bought in for 25 chips");
                         validInput = true;
                     } else {
                         System.out.println("Invalid input. Please enter 1 for Yes or 2 for No.");
@@ -65,8 +63,8 @@ public class PlayerInterface {
             int lastActivePlayerIndex = -1;
 
             // Count active players and track the index of the last active player
-            for (int i = 0; i < isPlayerActive.size(); i++) {
-                if (isPlayerActive.get(i)) {
+            for (int i = 0; i < PokerLogic.isPlayerActive.size(); i++) {
+                if (PokerLogic.isPlayerActive.get(i)) {
                     activePlayers++;
                     lastActivePlayerIndex = i;
                 }
@@ -75,9 +73,9 @@ public class PlayerInterface {
             if (activePlayers <= 1) {
                 // If there is only one active player, award them the round chips
                 if (activePlayers == 1 && lastActivePlayerIndex != -1) {
-                    int remainingPlayerChips = getPlayerChips().get(lastActivePlayerIndex) + roundChips;
-                    getPlayerChips().set(lastActivePlayerIndex, remainingPlayerChips);
-                    System.out.println("All other players have folded. " + playerNames.get(lastActivePlayerIndex) +
+                    int remainingPlayerChips = PokerLogic.getPlayerChips().get(lastActivePlayerIndex) + roundChips;
+                    PokerLogic.getPlayerChips().set(lastActivePlayerIndex, remainingPlayerChips);
+                    System.out.println("All other players have folded. " + PokerLogic.playerNames.get(lastActivePlayerIndex) +
                             " wins the round and receives " + roundChips + " chips.");
                     roundChips = 0; // Reset round chips after awarding to the winner
                 }
@@ -86,16 +84,16 @@ public class PlayerInterface {
 
             // Process the round for active players
             for (int i = 0; i < numberOfPlayers; i++) {
-                if (!isPlayerActive.get(i)) {
+                if (!PokerLogic.isPlayerActive.get(i)) {
                     continue; // Skip inactive players
                 }
 
                 correctInput = false; // Reset correctInput for each player
 
                 while (!correctInput) {
-                    currentPlayerChips = getPlayerChips().get(i);
-                    System.out.println("Player " + playerNames.get(i) + ", your cards are:");
-                    displayPlayerHand(getPlayerHands().get(i));
+                    currentPlayerChips = PokerLogic.getPlayerChips().get(i);
+                    System.out.println("Player " + PokerLogic.playerNames.get(i) + ", your cards are:");
+                    displayPlayerHand(PokerLogic.getPlayerHands().get(i));
                     System.out.println("You have " + currentPlayerChips + " chips. Please select what you would like to do:");
                     System.out.println("1: Fold");
                     System.out.println("2: Call (" + lastBet + " chips)");
@@ -107,17 +105,17 @@ public class PlayerInterface {
 
                         if (playerRoundSelection == 1) {
                             // Fold
-                            System.out.println("Player " + playerNames.get(i) + " has folded");
+                            System.out.println("Player " + PokerLogic.playerNames.get(i) + " has folded");
                             correctInput = true;
-                            isPlayerActive.set(i, false);
+                            PokerLogic.isPlayerActive.set(i, false);
                             activePlayers--;
 
                             if (activePlayers == 1) {
                                 for (int j = 0; j < numberOfPlayers; j++) {
-                                    if (isPlayerActive.get(j)) {
-                                        int remainingPlayerChips = getPlayerChips().get(j) + roundChips;
-                                        getPlayerChips().set(j, remainingPlayerChips);
-                                        System.out.println("All other players have folded. " + playerNames.get(j) +
+                                    if (PokerLogic.isPlayerActive.get(j)) {
+                                        int remainingPlayerChips = PokerLogic.getPlayerChips().get(j) + roundChips;
+                                        PokerLogic.getPlayerChips().set(j, remainingPlayerChips);
+                                        System.out.println("All other players have folded. " + PokerLogic.playerNames.get(j) +
                                                 " wins the round and receives " + roundChips + " chips.");
                                         roundChips = 0; // Reset round chips after awarding to the winner
                                         return; // End the round
@@ -128,9 +126,9 @@ public class PlayerInterface {
                             // Call
                             if (currentPlayerChips >= lastBet) {
                                 currentPlayerChips -= lastBet;
-                                playerChips.set(i, currentPlayerChips);
+                                PokerLogic.playerChips.set(i, currentPlayerChips);
                                 roundChips += lastBet;
-                                System.out.println("Player " + playerNames.get(i) + " calls and now has " + currentPlayerChips + " chips.");
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " calls and now has " + currentPlayerChips + " chips.");
                                 correctInput = true;
                                 consecutiveCallsOrChecks++;
                             } else {
@@ -142,12 +140,12 @@ public class PlayerInterface {
                             int raiseAmount = playerSelection.nextInt();
                             if (raiseAmount > lastBet && currentPlayerChips >= raiseAmount) {
                                 currentPlayerChips -= raiseAmount;
-                                playerChips.set(i, currentPlayerChips);
+                                PokerLogic.playerChips.set(i, currentPlayerChips);
                                 roundChips += raiseAmount;
                                 lastBet = raiseAmount;
                                 raiseOccurred = true;
                                 consecutiveCallsOrChecks = 0; // Reset consecutiveCallsOrChecks because a raise occurred
-                                System.out.println("Player " + playerNames.get(i) + " raises by " + raiseAmount + " and now has " + currentPlayerChips + " chips.");
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " raises by " + raiseAmount + " and now has " + currentPlayerChips + " chips.");
                                 correctInput = true;
                             } else {
                                 System.out.println("Invalid raise amount. Please enter an amount greater than " + lastBet + " and ensure you have enough chips.");
@@ -155,7 +153,7 @@ public class PlayerInterface {
                         } else if (playerRoundSelection == 4) {
                             // Check
                             if (lastBet == 0) {
-                                System.out.println("Player " + playerNames.get(i) + " checks.");
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " checks.");
                                 correctInput = true;
                                 consecutiveCallsOrChecks++;
                             } else {
@@ -189,7 +187,7 @@ public class PlayerInterface {
 
     static void displayPlayerHand(List<Cards> playerHand) {
         for (Cards card : playerHand) {
-            deck.getCardVisual(card);
+            PokerLogic.deck.getCardVisual(card);
             System.out.print(" ");
         }
         System.out.println();

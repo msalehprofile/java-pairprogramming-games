@@ -1,9 +1,9 @@
-package org.example.Games.Rummy;
+package gameProject.Games.Rummy;
 
-import org.example.SetUp.AllCards;
-import org.example.SetUp.Cards;
-import org.example.SetUp.Game;
-import org.example.SetUp.UserCreation;
+import gameProject.SetUp.AllCards;
+import gameProject.SetUp.Cards;
+import gameProject.SetUp.Game;
+import gameProject.SetUp.UserCreation;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package org.example.SetUp;
+package gameProject.SetUp;
 
 import java.util.Objects;
 import java.util.Scanner;

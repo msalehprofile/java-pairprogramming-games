@@ -1,6 +1,6 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
-import org.example.SetUp.Cards;
+import gameProject.SetUp.Cards;
 
 import java.util.ArrayList;
 import java.util.List;

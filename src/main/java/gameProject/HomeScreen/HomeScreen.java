@@ -1,7 +1,7 @@
-package org.example.HomeScreen;
+package gameProject.HomeScreen;
 
-import org.example.Games.Poker.Poker;
-import org.example.Games.Rummy.Rummy;
+import gameProject.Games.Poker.Poker;
+import gameProject.Games.Rummy.Rummy;
 
 import java.util.Objects;
 import java.util.Scanner;

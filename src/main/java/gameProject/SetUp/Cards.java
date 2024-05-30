@@ -1,4 +1,4 @@
-package org.example.SetUp;
+package gameProject.SetUp;
 
 public class Cards {
     private final Suit suit;

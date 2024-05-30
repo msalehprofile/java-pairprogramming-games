@@ -1,6 +1,4 @@
-package org.example.Games.Poker;
-
-import org.example.Games.Rummy.RummySetUp;
+package gameProject.Games.Poker;
 
 public class Poker {
     private static final String title = "Texas Hold'em Poker";

@@ -1,6 +1,4 @@
-package org.example.Games.Rummy;
-
-import org.example.SetUp.UserCreation;
+package gameProject.Games.Rummy;
 
 public class Rummy {
     private static final String title = "Rummy";

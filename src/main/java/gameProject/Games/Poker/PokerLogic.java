@@ -1,15 +1,15 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
-import org.example.SetUp.AllCards;
-import org.example.SetUp.Cards;
-import org.example.SetUp.UserCreation;
+import gameProject.SetUp.AllCards;
+import gameProject.SetUp.Cards;
+import gameProject.SetUp.UserCreation;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.example.Games.Poker.PlayerInterface.displayPlayerHand;
+import static gameProject.Games.Poker.PlayerInterface.displayPlayerHand;
 
 public class PokerLogic {
     protected static final List<String> playerNames = new ArrayList<>();

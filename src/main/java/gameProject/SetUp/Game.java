@@ -1,4 +1,4 @@
-package org.example.SetUp;
+package gameProject.SetUp;
 
 public abstract class Game {
     private final String title;

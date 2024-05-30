@@ -1,12 +1,12 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
-import org.example.SetUp.Cards;
+import gameProject.SetUp.Cards;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.Games.Poker.PlayerInterface.roundChips;
-import static org.example.Games.Poker.PokerHandEvaluator.evaluateHand;
+import static gameProject.Games.Poker.PlayerInterface.roundChips;
+import static gameProject.Games.Poker.PokerHandEvaluator.evaluateHand;
 
 public class WinCase {
 

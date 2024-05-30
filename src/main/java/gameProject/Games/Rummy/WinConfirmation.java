@@ -1,9 +1,8 @@
-package org.example.Games.Rummy;
+package gameProject.Games.Rummy;
 
-import org.example.HomeScreen.HomeScreen;
-import org.example.SetUp.Cards;
-import org.example.SetUp.Rank;
-import org.example.SetUp.Suit;
+import gameProject.SetUp.Cards;
+import gameProject.SetUp.Rank;
+import gameProject.SetUp.Suit;
 
 import java.util.*;
 import java.util.stream.Collectors;

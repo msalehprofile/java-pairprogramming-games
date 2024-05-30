@@ -1,4 +1,4 @@
-package org.example.Games.Poker;
+package gameProject.Games.Poker;
 
 public enum HandRank {
     HIGH_CARD("High Card"),
