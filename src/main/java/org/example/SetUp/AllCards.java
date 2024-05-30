@@ -11,7 +11,6 @@ public class AllCards {
     private static List<Cards> deckOfCards = allCards;
     public static Cards dealtCard;
 
-
     public void createAllCards() {
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
@@ -21,7 +20,7 @@ public class AllCards {
     }
 
     public void refreshStack(List<Cards> discardedPile) {
-        deckOfCards = discardedPile;
+        deckOfCards.addAll(discardedPile);
     }
 
     public void sortDeckByValue() {
@@ -42,8 +41,6 @@ public class AllCards {
     public void shuffle() {
         Collections.shuffle(deckOfCards);
     }
-
-
 
     public void dealCard() {
         dealtCard = deckOfCards.stream()
@@ -90,7 +87,7 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + card.getScore() + "         " + card.getScore() + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         } else if (card.getScore() == 10) {
             System.out.print(" \n"
                     + " _____________\n"
@@ -100,7 +97,7 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + card.getScore() + "       " + card.getScore() + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         } else {
             System.out.print(" \n"
                     + " _____________\n"
@@ -110,12 +107,12 @@ public class AllCards {
                     + "|      " + uniCode + "      |\n"
                     + "|             |\n"
                     + "| " + score + "         " + score + " |\n"
-                    + "|_____________|");
+                    + "|_____________|\n");
         }
     }
 
     public List<Cards> getDeckOfCards() {
-        return allCards;
+        return deckOfCards;
     }
 
 

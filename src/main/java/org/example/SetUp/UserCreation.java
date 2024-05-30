@@ -8,7 +8,7 @@ public class UserCreation {
     private String playerTwo;
     private String playerThree;
     private String playerFour;
-    private int numberOfPlayers;
+    private String numberOfPlayers;
 
     public String getPlayerFour() {
         return playerFour;
@@ -26,7 +26,7 @@ public class UserCreation {
         return playerOne;
     }
 
-    public int getNumberOfPlayers() {
+    public String getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
@@ -50,25 +50,25 @@ public class UserCreation {
                 + "3: Three\n"
                 + "4: Four\n");
         Scanner userCreation = new Scanner(System.in);
-        numberOfPlayers = userCreation.nextInt();
+        numberOfPlayers = userCreation.nextLine();
     }
 
     public void assigningNames() {
         System.out.println("\n" +"You have selected to play with " + numberOfPlayers + " people.");
         switch (numberOfPlayers) {
-            case 1:
+            case "1":
                 assignPlayerOne();
                 System.out.println(" \n"
                 +"Welcome " + playerOne);
                 break;
-            case 2:
+            case "2":
                 assignPlayerOne();
                 assignPlayerTwo();
 
                 System.out.println(" \n"
                         +"Welcome " + playerOne + " and " + playerTwo);
                 break;
-            case 3:
+            case "3":
                 assignPlayerOne();
                 assignPlayerTwo();
                 assignPlayerThree();
@@ -76,7 +76,7 @@ public class UserCreation {
                 System.out.println(" \n"
                         +"Welcome " + playerOne + ", " + playerTwo +" and " + playerThree);
                 break;
-            case 4:
+            case "4":
                 assignPlayerOne();
                 assignPlayerTwo();
                 assignPlayerThree();

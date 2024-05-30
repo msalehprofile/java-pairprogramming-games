@@ -5,47 +5,47 @@ import org.example.SetUp.Cards;
 import org.example.SetUp.Game;
 import org.example.SetUp.UserCreation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.*;
+
 
 public class RummySetUp extends Game {
-    private static int numberOfPlayers;
+    private static String numberOfPlayers;
     private static String playerOne;
     private String playerTwo;
     private String playerThree;
     private String playerFour;
-    private static int confirmation;
-
-    private static final List<Cards> originalDeck = new ArrayList<>();
-    private static List<Cards> deckOfCards = originalDeck;
     public static Cards dealtCard;
+    public static String confirmation;
 
     public RummySetUp(String title, String rules) {
         super(title, rules);
     }
 
     static List<Cards> playerOneCards = new ArrayList<>();
-    List<Cards> playerTwoCards = new ArrayList<>();
-    List<Cards> playerThreeCards = new ArrayList<>();
-    List<Cards> playerFourCards = new ArrayList<>();
-
+    static List<Cards> playerTwoCards = new ArrayList<>();
+    static List<Cards> playerThreeCards = new ArrayList<>();
+    static List<Cards> playerFourCards = new ArrayList<>();
     static List<Cards> discardedPile = new ArrayList<>();
 
+    static AllCards allCards = new AllCards();
 
     @Override
     public void play() {
         UserCreation userCreation = new UserCreation();
         userCreation.creatingUsers();
-        numberOfPlayers = userCreation.getNumberOfPlayers();
 
-        if(numberOfPlayers == 1) {
+        if(Objects.equals(userCreation.getNumberOfPlayers(), "1")) {
             System.out.println("\n"
                     + "You can't play Rummy alone, please select again.");
             userCreation.creatingUsers();
         }
 
+        if (!(userCreation.getNumberOfPlayers().equals("2") || userCreation.getNumberOfPlayers().equals("3") || userCreation.getNumberOfPlayers().equals("4"))) {
+            System.out.println("\nPlease select a valid option.");
+                userCreation.creatingUsers();
+            }
+
+        numberOfPlayers = userCreation.getNumberOfPlayers();
         userCreation.assigningNames();
         playerOne = userCreation.getPlayerOne();
         playerTwo = userCreation.getPlayerTwo();
@@ -54,288 +54,169 @@ public class RummySetUp extends Game {
         dealCards();
     }
 
+    public void dealHands(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
+        for (int i = 0; i < 7; i++) {
+            allCards.dealCard();
+            dealtCard = allCards.getDealtCard();
+            currentPlayerCards.add(dealtCard);
+            allCards.getCardVisual(dealtCard);
+        }
+        System.out.println("\n" + currentPlayer + " your cards are: ");
+        for (Cards card : currentPlayerCards) {
+            System.out.println(card);
+        }
+        PlayerInteraction.seenCardConfirmation(currentPlayer);
+        PlayerInteraction.nextPlayer(currentPlayer, nextPlayer);
+    }
+
     public void dealCards() {
-        AllCards allCards = new AllCards();
         allCards.createAllCards();
         allCards.shuffle();
-        deckOfCards = allCards.getDeckOfCards();
 
-        System.out.println("\n" + "We are now going to deal out the cards, " + playerOne + " please take a look at the screen first.\n"
-                + "\n" + "Select 1 to continue: \n" +
-                "1: Continue");
-        Scanner seenCards = new Scanner(System.in);
-        confirmation = seenCards.nextInt();
+        PlayerInteraction.dealCards(playerOne);
 
-        if (confirmation == 1) {
-
+            // dealing cards depending on number of players
             switch (numberOfPlayers) {
-                case 2:
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
-
-                    PlayerInteraction.seenCardConfirmaion(playerOne);
-                    PlayerInteraction.nextPlayer(playerOne, playerTwo);
-
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
-                    PlayerInteraction.seenCardConfirmaion(playerTwo);
-                    PlayerInteraction.nextPlayer(playerTwo, playerOne);
+                case "2":
+                    dealHands(playerOne, playerTwo, playerOneCards);
+                    dealHands(playerTwo, playerOne, playerTwoCards);
                     break;
-                case 3:
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
-
-                    PlayerInteraction.seenCardConfirmaion(playerOne);
-                    PlayerInteraction.nextPlayer(playerOne, playerTwo);
-
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
-
-                    PlayerInteraction.seenCardConfirmaion(playerTwo);
-                    PlayerInteraction.nextPlayer(playerTwo, playerThree);
-
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerThreeCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerThree + " your cards are: " + playerThreeCards);
-                    PlayerInteraction.seenCardConfirmaion(playerThree);
+                case "3":
+                    dealHands(playerOne, playerTwo, playerOneCards);
+                    dealHands(playerTwo, playerOne, playerTwoCards);
+                    dealHands(playerThree, playerOne, playerThreeCards);
                     break;
-                case 4:
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerOneCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerOne + " your cards are: " + playerOneCards);
+                case "4":
+                    dealHands(playerOne, playerTwo, playerOneCards);
+                    dealHands(playerTwo, playerOne, playerTwoCards);
+                    dealHands(playerThree, playerOne, playerThreeCards);
+                    dealHands(playerFour, playerOne, playerFourCards);
 
-                    PlayerInteraction.seenCardConfirmaion(playerOne);
-                    PlayerInteraction.nextPlayer(playerOne, playerTwo);
+        }
+        mainGamePlay();
+    }
 
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerTwoCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n " + playerTwo + " your cards are: " + playerTwoCards);
+    public void playerTurn(String currentPlayer, String nextPlayer, List<Cards> currentPlayerCards) {
+        System.out.println(currentPlayer + " your current cards are as followed: ");
+        for (Cards card : currentPlayerCards) {
+            allCards.getCardVisual(card);
+        }
+        for (Cards card : currentPlayerCards) {
+            System.out.println(card);
+        }
+        if (discardedPile.isEmpty()) {
+            PlayerInteraction.firstPlayerGameDecision(currentPlayer);
+            allCards.dealCard();
+            dealtCard = allCards.getDealtCard();
+            System.out.println("\n" +currentPlayer+ " the unknown card you picked up was: " + dealtCard);
+            currentPlayerCards.add(dealtCard);
 
-                    PlayerInteraction.seenCardConfirmaion(playerTwo);
-                    PlayerInteraction.nextPlayer(playerTwo, playerThree);
+        } else {
+            PlayerInteraction.playerGameDecision(currentPlayer, discardedPile.get(discardedPile.size() - 1));
+            confirmation = PlayerInteraction.getConfirmation();
 
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerThreeCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerThree + " your cards are: " + playerThreeCards);
+            if (Objects.equals(confirmation, "1")) {
+                dealtCard = discardedPile.get(discardedPile.size() - 1);
+                System.out.println("\n" + " the card you picked up was: " + dealtCard);
+                currentPlayerCards.add(dealtCard);
 
-                    PlayerInteraction.seenCardConfirmaion(playerThree);
-                    PlayerInteraction.nextPlayer(playerThree, playerFour);
-
-                    for (int i = 0; i < 7; i++) {
-                        allCards.dealCard();
-                        dealtCard = allCards.getDealtCard();
-                        playerFourCards.add(dealtCard);
-                        allCards.getCardVisual(dealtCard);
-                    }
-                    System.out.println("\n" + playerFour + " your cards are: " + playerFourCards);
-                    PlayerInteraction.seenCardConfirmaion(playerFour);
-
-                    break;
+            } else {
+                allCards.dealCard();
+                dealtCard = allCards.getDealtCard();
+                System.out.println("\n" + currentPlayer +" the unknown card you picked up was: " + dealtCard);
+                currentPlayerCards.add(dealtCard);
             }
+        }
 
-            while (true) {
-                switch (numberOfPlayers) {
-                    case 2:
-                        System.out.println(playerOne + " your current cards are as followed: " + playerOneCards);
-                        for (Cards card : playerOneCards) {
-                            allCards.getCardVisual(card);
-                        }
-                        if (discardedPile.isEmpty()) {
-                            PlayerInteraction.firstPlayerGameDecision(playerOne);
-                            allCards.dealCard();
-                            dealtCard = allCards.getDealtCard();
-                            System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
-                            playerOneCards.add(dealtCard);
-                            System.out.println("You currently have the below cards: ");
-                            for (Cards card : playerOneCards) {
-                                allCards.getCardVisual(card);
-                            }
-                            PlayerInteraction.playerRemoveCardChoice(playerOne, playerOneCards);
-                            Scanner playerOneRemoves = new Scanner(System.in);
-                            confirmation = playerOneRemoves.nextInt();
-                            discardedPile.add(playerOneCards.get(confirmation - 1));
+        PlayerInteraction.playerRemoveCardChoice(currentPlayer, currentPlayerCards);
+        int confirmationInt = Integer.parseInt(PlayerInteraction.getConfirmation());
+        discardedPile.add(currentPlayerCards.get(confirmationInt - 1));
 
-                            playerOneCards.remove(confirmation - 1);
+        currentPlayerCards.remove(confirmationInt - 1);
 
-                            System.out.println("\n" + playerOne + " your new set is as below: ");
-                            for (Cards card : playerOneCards) {
-                                allCards.getCardVisual(card);
-                            }
+        System.out.println("\n" + currentPlayer + " your new set is as below: ");
+        for (Cards card : currentPlayerCards) {
+            allCards.getCardVisual(card);
+        }
 
-                        } else {
-                            PlayerInteraction.playerGameDecision(playerOne, discardedPile.get(discardedPile.size() - 1));
-                            Scanner playerSelection = new Scanner(System.in);
-                            confirmation = playerSelection.nextInt();
-                            if (confirmation == 1) {
-                                dealtCard = discardedPile.get(discardedPile.size() - 1);
-                                System.out.println("\n" + " the card you picked up was: " + dealtCard);
-                                playerOneCards.add(dealtCard);
-                                System.out.println("You currently have the below cards: ");
-                                for (Cards card : playerOneCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                                PlayerInteraction.playerRemoveCardChoice(playerOne, playerOneCards);
-                                Scanner playerOneRemoves = new Scanner(System.in);
-                                confirmation = playerOneRemoves.nextInt();
-                                discardedPile.add(playerOneCards.get(confirmation - 1));
+        if (allCards.getDeckOfCards().isEmpty()) {
+            allCards.refreshStack(discardedPile);
+            discardedPile.clear();
+        }
 
-                                playerOneCards.remove(confirmation - 1);
-
-                                System.out.println("\n" + playerOne + " your new set is as below: ");
-                                for (Cards card : playerOneCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                            } else {
-                                allCards.dealCard();
-                                dealtCard = allCards.getDealtCard();
-                                System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
-                                playerOneCards.add(dealtCard);
-                                System.out.println("You currently have the below cards: ");
-                                for (Cards card : playerOneCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                                PlayerInteraction.playerRemoveCardChoice(playerOne, playerOneCards);
-                                Scanner playerOneRemoves = new Scanner(System.in);
-                                confirmation = playerOneRemoves.nextInt();
-                                discardedPile.add(playerOneCards.get(confirmation - 1));
-
-                                playerOneCards.remove(confirmation - 1);
-
-                                System.out.println("\n" + playerOne + " your new set is as below: ");
-                                for (Cards card : playerOneCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                            }
-                        }
-                        PlayerInteraction.gameState(playerOne);
-                        Scanner gameState = new Scanner(System.in);
-                        confirmation = gameState.nextInt();
-                        if (confirmation != 1) {
-                            WinConfirmation.checkingNumberOfSuits(playerOneCards, playerOne, playerTwo);
-                        }
-                        PlayerInteraction.nextPlayer(playerOne, playerTwo);
-                        System.out.println(playerTwo + " your current cards are as followed: " + playerTwoCards);
-                        for (Cards card : playerTwoCards) {
-                            allCards.getCardVisual(card);
-                        }
-                        if (discardedPile.isEmpty()) {
-                            PlayerInteraction.firstPlayerGameDecision(playerTwo);
-                            allCards.dealCard();
-                            dealtCard = allCards.getDealtCard();
-                            System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
-                            playerTwoCards.add(dealtCard);
-                            System.out.println("You currently have the below cards: ");
-                            for (Cards card : playerTwoCards) {
-                                allCards.getCardVisual(card);
-                            }
-                            PlayerInteraction.playerRemoveCardChoice(playerTwo, playerTwoCards);
-                            Scanner playerOneRemoves = new Scanner(System.in);
-                            confirmation = playerOneRemoves.nextInt();
-                            discardedPile.add(playerTwoCards.get(confirmation - 1));
-
-                            playerTwoCards.remove(confirmation - 1);
-
-                            System.out.println("\n" + playerTwo + " your new set is as below: ");
-                            for (Cards card : playerTwoCards) {
-                                allCards.getCardVisual(card);
-                            }
-
-                        } else {
-                            PlayerInteraction.playerGameDecision(playerTwo, discardedPile.get(discardedPile.size() - 1));
-                            Scanner playerSelection = new Scanner(System.in);
-                            confirmation = playerSelection.nextInt();
-                            if (confirmation == 1) {
-                                dealtCard = discardedPile.get(discardedPile.size() - 1);
-                                System.out.println("\n" + " the card you picked up was: " + dealtCard);
-                                playerTwoCards.add(dealtCard);
-                                System.out.println("You currently have the below cards: ");
-                                for (Cards card : playerTwoCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                                PlayerInteraction.playerRemoveCardChoice(playerTwo, playerTwoCards);
-                                Scanner playerOneRemoves = new Scanner(System.in);
-                                confirmation = playerOneRemoves.nextInt();
-                                discardedPile.add(playerTwoCards.get(confirmation - 1));
-
-                                playerTwoCards.remove(confirmation - 1);
-
-                                System.out.println("\n" + playerTwo + " your new set is as below: ");
-                                for (Cards card : playerTwoCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                            } else {
-                                allCards.dealCard();
-                                dealtCard = allCards.getDealtCard();
-                                System.out.println("\n" + " the unknown card you picked up was: " + dealtCard);
-                                playerTwoCards.add(dealtCard);
-                                System.out.println("You currently have the below cards: ");
-                                for (Cards card : playerTwoCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                                PlayerInteraction.playerRemoveCardChoice(playerTwo, playerTwoCards);
-                                Scanner playerOneRemoves = new Scanner(System.in);
-                                confirmation = playerOneRemoves.nextInt();
-                                discardedPile.add(playerTwoCards.get(confirmation - 1));
-
-                                playerTwoCards.remove(confirmation - 1);
-
-                                System.out.println("\n" + playerTwo + " your new set is as below: ");
-                                for (Cards card : playerTwoCards) {
-                                    allCards.getCardVisual(card);
-                                }
-                            }
-                            PlayerInteraction.nextPlayer(playerTwo, playerOne);
-                        }
-                        allCards.refreshStack(discardedPile);
+        PlayerInteraction.gameState(currentPlayer, nextPlayer, currentPlayerCards);
+    }
 
 
+
+    public void mainGamePlay() {
+        boolean gameFinished = false;
+        // main gameplay depending on number of players
+        while (!gameFinished) {
+            switch (numberOfPlayers) {
+                case "2":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
                         break;
-                    case 3:
+                    }
+                    playerTurn(playerTwo, playerOne, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
                         break;
-                }
-                // check hand
+                    }
+                    break;
+                case "3":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    playerTurn(playerTwo, playerThree, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    playerTurn(playerThree, playerOne, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    break;
+                case "4":
+                    playerTurn(playerOne, playerTwo, playerOneCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    playerTurn(playerTwo, playerThree, playerTwoCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    playerTurn(playerThree, playerFour, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    playerTurn(playerFour, playerOne, playerThreeCards);
+                    gameFinished = PlayerInteraction.isGameFinished();
+                    if(gameFinished) {
+                        break;
+                    }
+                    break;
             }
         }
     }
 
     @Override
-    public void restart() {
-
-    }
-}
+        public void restart () {
+                allCards.resetDeck();
+                playerFourCards.clear();
+                playerThreeCards.clear();
+                playerTwoCards.clear();
+                playerOneCards.clear();
+                discardedPile.clear();
+                dealCards();
+            }
+        }
