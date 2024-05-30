@@ -30,6 +30,18 @@ public class UserCreation {
         return numberOfPlayers;
     }
 
+    public void pokerCreatingUsers() {
+        System.out.println(" \n"
+                + " Please pick the number of players (Max Six):\n"
+                + "2: Two\n"
+                + "3: Three\n"
+                + "4: Four\n"
+                + "5: Five\n"
+                + "6: Six\n");
+        Scanner userCreation = new Scanner(System.in);
+        numberOfPlayers = userCreation.nextInt();
+    }
+
     public void creatingUsers() {
         System.out.println(" \n"
                 + " Please pick the number of players (Max four):\n"
