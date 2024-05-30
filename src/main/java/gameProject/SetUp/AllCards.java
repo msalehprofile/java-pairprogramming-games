@@ -1,4 +1,4 @@
-package org.example.SetUp;
+package gameProject.SetUp;
 
 import java.util.ArrayList;
 import java.util.Collections;

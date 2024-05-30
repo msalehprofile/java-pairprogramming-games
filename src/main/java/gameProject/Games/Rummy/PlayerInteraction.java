@@ -1,7 +1,7 @@
-package org.example.Games.Rummy;
+package gameProject.Games.Rummy;
 
-import org.example.HomeScreen.HomeScreen;
-import org.example.SetUp.Cards;
+import gameProject.HomeScreen.HomeScreen;
+import gameProject.SetUp.Cards;
 
 import java.util.List;
 import java.util.Objects;

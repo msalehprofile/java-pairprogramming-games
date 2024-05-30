@@ -1,6 +1,7 @@
-package org.example.HomeScreen;
+package gameProject.HomeScreen;
 
-import org.example.Games.Rummy.Rummy;
+import gameProject.Games.Poker.Poker;
+import gameProject.Games.Rummy.Rummy;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -25,7 +26,7 @@ public class HomeScreen {
         } if (Objects.equals(chosenGame, "1")) {
             Rummy.playRummy();
         } else if (Objects.equals(chosenGame, "2")) {
-            System.out.println("Play Poker");
+            Poker.playPoker();
         } else if (Objects.equals(chosenGame, "3")){
             System.out.println("\nSee you soon, goodbye!");
         }
