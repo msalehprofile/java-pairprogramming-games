@@ -1,4 +1,4 @@
-# Game Project: Poker and Rummy
+# Game Project: Poker and Rummy :hearts: :clubs: :diamonds: :spades:
 
 ## Overview
 Welcome to our Game Project! This project is a result of a collaborative pair-programming effort where Callum focused on developing the Poker game functionalities and Molly focused on developing the Rummy game functionalities. This repository contains the setup for a card game project, including classes for handling cards, suits, ranks, and user creation.
@@ -22,7 +22,8 @@ This project involved pair-programming where we worked together on communal clas
 
 ### Collaborative
 - AllCards
-- Poker
+  
+## Poker
   - HandRank.java: An enum of all possible hand rankings used to evaluate players' hands.
   - PlayerInterface.java: Deals with all user interactions in rounds, buy-in, and all other cases.
   - Poker.java: Holds the rules, title, and order of commands to run the game.
@@ -30,15 +31,15 @@ This project involved pair-programming where we worked together on communal clas
   - PokerHandEvaluator.java: Holds all evaluation logic to determine what a winning hand is using the HandRank enum.
   - PokerLogic.java: Contains game logic like the dealing of cards and cycling of players to play the game. Also where the number of players is determined.
   - WinCase.java: Contains the logic to use the hand evaluator and hand rank above on each player hand and assign the winner with an index marker.
-- Rummy
+## Rummy
   - PlayerInteraction.java: Handles all user interactions with the game such as each player's next move.
   - Rummy.java: Holds the rules, title, and order of commands to run the game.
   - RummySetUp.java: Holds all the setup logic for rummy such as dealing cards and hands.
   - WinConfirmation.java: Holds the logic to determine who the winner is and when they win.
-- HomeScreen
+### HomeScreen
   - HomeScreen.Java: Creates the home screen and gives the user the choice of which game to play.
 
-### gameProject.SetUp
+## gameProject.SetUp
 - AllCards.java: Manages the creation, sorting, shuffling, and dealing of cards.
 - Cards.java: Represents a single card with a suit and rank.
 - Game.java: An abstract class defining the basic structure of a game.
@@ -54,7 +55,7 @@ Upon running the application, you will be presented with the home screen. Follow
 
 ## Features
 
-### Poker (Implemented by Callum)
+## Poker (Implemented by Callum)
 - Card Handling: Creation of a standard 52-card deck.
 - Shuffling: Ability to shuffle the deck.
 - Dealing: Deal cards to players and the game hand.
