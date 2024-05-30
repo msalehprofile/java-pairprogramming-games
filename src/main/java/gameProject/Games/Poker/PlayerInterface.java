@@ -1,7 +1,6 @@
 package gameProject.Games.Poker;
 
 import gameProject.SetUp.Cards;
-
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +16,7 @@ public class PlayerInterface {
     static boolean correctInput = false;
     static int consecutiveCallsOrChecks = 0;
     static boolean raiseOccurred = false;
+    public static boolean playerWonRound = false;
 
     protected static void buyIn() {
         Scanner buyInSelection = new Scanner(System.in);
@@ -57,6 +57,8 @@ public class PlayerInterface {
         consecutiveCallsOrChecks = 0;
         raiseOccurred = false;
         lastBet = 0; // Reset lastBet for each round
+        playerWonRound = false; // Reset playerWonRound for each round
+        int raiserIndex = -1;
 
         while (true) {
             int activePlayers = 0;
@@ -73,10 +75,13 @@ public class PlayerInterface {
             if (activePlayers <= 1) {
                 // If there is only one active player, award them the round chips
                 if (activePlayers == 1 && lastActivePlayerIndex != -1) {
-                    int remainingPlayerChips = PokerLogic.getPlayerChips().get(lastActivePlayerIndex) + roundChips;
-                    PokerLogic.getPlayerChips().set(lastActivePlayerIndex, remainingPlayerChips);
-                    System.out.println("All other players have folded. " + PokerLogic.playerNames.get(lastActivePlayerIndex) +
-                            " wins the round and receives " + roundChips + " chips.");
+                    if (!playerWonRound) { // Check if the player hasn't already won
+                        int remainingPlayerChips = PokerLogic.getPlayerChips().get(lastActivePlayerIndex) + roundChips;
+                        PokerLogic.getPlayerChips().set(lastActivePlayerIndex, remainingPlayerChips);
+                        System.out.println("All other players have folded. " + PokerLogic.playerNames.get(lastActivePlayerIndex) +
+                                " wins the round and now has " + remainingPlayerChips + " chips.");
+                        playerWonRound = true; // Set the flag to true
+                    }
                     roundChips = 0; // Reset round chips after awarding to the winner
                 }
                 break; // Exit the loop if only one or no player is left active
@@ -113,10 +118,13 @@ public class PlayerInterface {
                             if (activePlayers == 1) {
                                 for (int j = 0; j < numberOfPlayers; j++) {
                                     if (PokerLogic.isPlayerActive.get(j)) {
-                                        int remainingPlayerChips = PokerLogic.getPlayerChips().get(j) + roundChips;
-                                        PokerLogic.getPlayerChips().set(j, remainingPlayerChips);
-                                        System.out.println("All other players have folded. " + PokerLogic.playerNames.get(j) +
-                                                " wins the round and receives " + roundChips + " chips.");
+                                        if (!playerWonRound) { // Check if the player hasn't already won
+                                            int remainingPlayerChips = PokerLogic.getPlayerChips().get(j) + roundChips;
+                                            PokerLogic.getPlayerChips().set(j, remainingPlayerChips);
+                                            System.out.println("All other players have folded. " + PokerLogic.playerNames.get(j) +
+                                                    " wins the round and now has " + remainingPlayerChips + " chips.");
+                                            playerWonRound = true; // Set the flag to true
+                                        }
                                         roundChips = 0; // Reset round chips after awarding to the winner
                                         return; // End the round
                                     }
@@ -125,65 +133,59 @@ public class PlayerInterface {
                         } else if (playerRoundSelection == 2) {
                             // Call
                             if (currentPlayerChips >= lastBet) {
-                                currentPlayerChips -= lastBet;
-                                PokerLogic.playerChips.set(i, currentPlayerChips);
+                                PokerLogic.playerChips.set(i, currentPlayerChips - lastBet);
                                 roundChips += lastBet;
-                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " calls and now has " + currentPlayerChips + " chips.");
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " has called with " + lastBet + " chips");
                                 correctInput = true;
                                 consecutiveCallsOrChecks++;
                             } else {
-                                System.out.println("Not enough chips to call. Please choose another option.");
+                                System.out.println("You don't have enough chips to call. Please choose another action.");
                             }
                         } else if (playerRoundSelection == 3) {
                             // Raise
-                            System.out.println("Enter raise amount (must be greater than " + lastBet + "):");
+                            System.out.println("Enter the amount you want to raise:");
                             int raiseAmount = playerSelection.nextInt();
-                            if (raiseAmount > lastBet && currentPlayerChips >= raiseAmount) {
-                                currentPlayerChips -= raiseAmount;
-                                PokerLogic.playerChips.set(i, currentPlayerChips);
-                                roundChips += raiseAmount;
-                                lastBet = raiseAmount;
-                                raiseOccurred = true;
-                                consecutiveCallsOrChecks = 0; // Reset consecutiveCallsOrChecks because a raise occurred
-                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " raises by " + raiseAmount + " and now has " + currentPlayerChips + " chips.");
+                            if (raiseAmount > 0 && currentPlayerChips >= (lastBet + raiseAmount)) {
+                                lastBet += raiseAmount;
+                                PokerLogic.playerChips.set(i, currentPlayerChips - lastBet);
+                                roundChips += lastBet;
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " has raised by " + raiseAmount + " chips");
                                 correctInput = true;
+                                consecutiveCallsOrChecks = 0; // Reset consecutive calls or checks
+                                raiseOccurred = true;
+                                raiserIndex = i; // Track the raiser index
                             } else {
-                                System.out.println("Invalid raise amount. Please enter an amount greater than " + lastBet + " and ensure you have enough chips.");
+                                System.out.println("You don't have enough chips to raise. Please choose another action.");
                             }
                         } else if (playerRoundSelection == 4) {
                             // Check
                             if (lastBet == 0) {
-                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " checks.");
+                                System.out.println("Player " + PokerLogic.playerNames.get(i) + " has checked");
                                 correctInput = true;
                                 consecutiveCallsOrChecks++;
                             } else {
-                                System.out.println("Cannot check. A bet has been made. Please choose another option.");
+                                System.out.println("You cannot check as there is a bet to call. Please choose another action.");
                             }
                         } else {
-                            System.out.println("Invalid input. Please try again.");
+                            System.out.println("Invalid input. Please enter a number corresponding to your choice.");
                         }
 
-                        // If all active players have called or checked consecutively, end the round
-                        if (consecutiveCallsOrChecks >= activePlayers && !raiseOccurred) {
-                            System.out.println("Round has ended.");
-                            return;
+                        // Check if all players except the raiser have called or all have checked
+                        if ((consecutiveCallsOrChecks == activePlayers && !raiseOccurred) ||
+                                (consecutiveCallsOrChecks == (activePlayers - 1) && raiseOccurred)) {
+                            System.out.println("All players have either called or checked. Dealing the next card...");
+                            return; // Exit the method to deal the next card
                         }
+
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid input. Please enter a number corresponding to your choice.");
                         playerSelection.next(); // Consume the invalid input
                     }
                 }
             }
-
-            // Reset raiseOccurred at the end of the round to allow raising in the next round
-            if (consecutiveCallsOrChecks >= activePlayers) {
-                System.out.println("Round has ended.");
-                raiseOccurred = false;
-                lastBet = 0;
-                break;
-            }
         }
     }
+
 
     static void displayPlayerHand(List<Cards> playerHand) {
         for (Cards card : playerHand) {
@@ -191,4 +193,5 @@ public class PlayerInterface {
             System.out.print(" ");
         }
         System.out.println();
-    }}
+    }
+}
