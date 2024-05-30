@@ -70,12 +70,12 @@ public class PokerLogic {
     public void play() {
         UserCreation userCreation = new UserCreation();
         userCreation.pokerCreatingUsers();
-        numberOfPlayers = userCreation.getNumberOfPlayers();
+        numberOfPlayers = Integer.parseInt(userCreation.getNumberOfPlayers());
 
         if (numberOfPlayers < 2 || numberOfPlayers > 6) {
             System.out.println("\nPlease select a valid option.");
             userCreation.pokerCreatingUsers();
-            numberOfPlayers = userCreation.getNumberOfPlayers();
+            numberOfPlayers = Integer.parseInt(userCreation.getNumberOfPlayers());
         }
 
         playerNames.clear();

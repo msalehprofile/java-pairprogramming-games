@@ -39,7 +39,7 @@ public class UserCreation {
                 + "5: Five\n"
                 + "6: Six\n");
         Scanner userCreation = new Scanner(System.in);
-        numberOfPlayers = userCreation.nextInt();
+        numberOfPlayers = userCreation.nextLine();
     }
 
     public void creatingUsers() {
