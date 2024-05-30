@@ -13,7 +13,7 @@ import static gameProject.Games.Poker.PlayerInterface.displayPlayerHand;
 
 public class PokerLogic {
     protected static final List<String> playerNames = new ArrayList<>();
-    private List<Cards> gameCards = new ArrayList<>();
+    private static List<Cards> gameCards = new ArrayList<>();
     public static Cards dealtCards;
     static List<List<Cards>> playerHands = new ArrayList<>();
     static AllCards deck = new AllCards();
@@ -57,12 +57,12 @@ public class PokerLogic {
         PokerLogic.dealtCards = dealtCards;
     }
 
-    public List<Cards> getGameCards() {
+    public static List<Cards> getGameCards() {
         return gameCards;
     }
 
     public void setGameCards(List<Cards> gameCards) {
-        this.gameCards = gameCards;
+        PokerLogic.gameCards = gameCards;
     }
 
     public static int numberOfPlayers;
@@ -128,9 +128,9 @@ public class PokerLogic {
         for(int j = 0; j < 3; j++){
             deck.dealCard();
             gameCards.add(deck.getDealtCard());
-            displayPlayerHand(gameCards);
             PlayerInterface.lastBet = 0;
         }
+        displayPlayerHand(gameCards);
     }
 
     public void dealTurn() {
@@ -144,5 +144,9 @@ public class PokerLogic {
         gameCards.add(deck.getDealtCard());
         displayPlayerHand(gameCards);
         PlayerInterface.lastBet = 0;
+    }
+
+    public void showCards() {
+        displayPlayerHand(gameCards);
     }
 }
