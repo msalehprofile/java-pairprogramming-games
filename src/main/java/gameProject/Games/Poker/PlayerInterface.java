@@ -74,7 +74,7 @@ public class PlayerInterface {
 
             if (activePlayers <= 1) {
                 // If there is only one active player, award them the round chips
-                if (activePlayers == 1 && lastActivePlayerIndex != -1) {
+                if (activePlayers == 1) {
                     if (!playerWonRound) { // Check if the player hasn't already won
                         int remainingPlayerChips = PokerLogic.getPlayerChips().get(lastActivePlayerIndex) + roundChips;
                         PokerLogic.getPlayerChips().set(lastActivePlayerIndex, remainingPlayerChips);
@@ -96,6 +96,10 @@ public class PlayerInterface {
                 correctInput = false; // Reset correctInput for each player
 
                 while (!correctInput) {
+
+                    if(!PokerLogic.getGameCards().isEmpty()) {
+                        displayPlayerHand(PokerLogic.getGameCards());
+                    }
                     currentPlayerChips = PokerLogic.getPlayerChips().get(i);
                     System.out.println("Player " + PokerLogic.playerNames.get(i) + ", your cards are:");
                     displayPlayerHand(PokerLogic.getPlayerHands().get(i));
